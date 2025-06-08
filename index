@@ -2,41 +2,56 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="/_next/static/css/008edca24b12790c.css">
-    <link rel="stylesheet" href="/_next/static/css/727973242bb33abd.css">
-    <link rel="stylesheet" href="buelldocs-theme.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuellDocs Paystub Generator Pro </title>
+    <title>BuellDocs Paystub Generator</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- The html2pdf.js library is used for the PDF generation functionality -->
+    
+    <!-- PDF Generation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" xintegrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <style>
-        /* General Body Styles */
+        /*
+        ========================================
+        BUELLDOCS THEME & CORE STYLES
+        ========================================
+        */
         :root {
-            --primary-color: #4A90E2;
-            --secondary-color: #50E3C2;
-            --background-color: #f7f9fc;
-            --text-color: #333;
-            --heading-color: #111;
-            --border-color: #e0e6ed;
-            --white-color: #fff;
-            --shadow-color: rgba(0, 0, 0, 0.05);
-            --input-bg-color: #fff;
-            --input-focus-border: #4A90E2;
+            --bg-primary: #0a0a0c;
+            --bg-secondary: #141418;
+            --accent-primary: #ae8e5d;
+            --accent-secondary: #3a3a42;
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-tertiary: rgba(255, 255, 255, 0.4);
+            --blur-amount: 10px;
+            --card-transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            --shadow-color: rgba(0, 0, 0, 0.2);
         }
 
+        /* General Body Styles */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             margin: 0;
             line-height: 1.6;
         }
 
-        /* Container and Layout */
+        /* Utility Classes */
+        .hidden {
+            display: none;
+        }
+
+        /*
+        ========================================
+        LAYOUT & CONTAINER
+        ========================================
+        */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -54,42 +69,89 @@
                 grid-template-columns: 450px 1fr;
             }
         }
-
-        /* Header Styles */
+        
+        /*
+        ========================================
+        HEADER & NAVIGATION
+        ========================================
+        */
         .header {
-            background-color: var(--white-color);
+            background-color: var(--bg-secondary);
             padding: 15px 30px;
-            border-bottom: 1px solid var(--border-color);
+            border: 1px solid var(--accent-secondary);
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px var(--shadow-color);
-            border-radius: 8px;
-            margin-bottom: 20px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            margin-bottom: 30px;
         }
 
         .header .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--text-primary);
+        }
+        
+        .header .logo span {
+            color: var(--accent-primary);
         }
 
-        /* Form Section Styles */
-        .form-section {
-            background: var(--white-color);
+        .header nav {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-link {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: var(--card-transition);
+        }
+        
+        .nav-link:hover {
+            color: var(--text-primary);
+            background-color: var(--accent-secondary);
+        }
+        
+        .nav-link.active {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        /*
+        ========================================
+        FORM & INPUT STYLES
+        ========================================
+        */
+        .card-section {
+            background: var(--bg-secondary);
             padding: 25px;
             border-radius: 8px;
+            border: 1px solid var(--accent-secondary);
             box-shadow: 0 4px 12px var(--shadow-color);
             height: fit-content;
+            transition: var(--card-transition);
+        }
+        
+        .card-section:hover {
+            box-shadow: 0 8px 24px var(--shadow-color);
+            transform: translateY(-2px);
         }
 
-        .form-section h2,
-        .form-section h3 {
-            color: var(--heading-color);
-            border-bottom: 1px solid var(--border-color);
+        .card-section h2,
+        .card-section h3 {
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--accent-secondary);
             padding-bottom: 10px;
             margin-top: 0;
             margin-bottom: 20px;
+            font-weight: 600;
         }
 
         .form-group {
@@ -98,66 +160,90 @@
 
         .form-group label {
             display: block;
-            font-weight: 600;
+            font-weight: 500;
+            color: var(--text-secondary);
             margin-bottom: 8px;
             font-size: 0.9rem;
         }
 
         .form-group input,
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--accent-secondary);
             border-radius: 6px;
             box-sizing: border-box;
-            background-color: var(--input-bg-color);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
         }
 
         .form-group input:focus,
-        .form-group select:focus {
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
-            border-color: var(--input-focus-border);
-            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(174, 142, 93, 0.2);
         }
 
-        /* Button Styles */
+        /*
+        ========================================
+        BUTTON STYLES
+        ========================================
+        */
         .btn {
             display: inline-block;
             padding: 12px 24px;
             border-radius: 6px;
             border: none;
             font-weight: 600;
+            font-size: 0.95rem;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: all 0.3s;
             text-align: center;
         }
 
         .btn-primary {
-            background-color: var(--primary-color);
-            color: var(--white-color);
+            background-color: var(--accent-primary);
+            color: var(--bg-primary);
         }
 
         .btn-primary:hover {
-            background-color: #357ABD;
+            background-color: #c7a97e; /* Lighter accent */
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(174, 142, 93, 0.2);
         }
-
+        
         .btn-secondary {
-            background-color: #6c757d;
-            color: var(--white-color);
+            background-color: var(--accent-secondary);
+            color: var(--text-primary);
+        }
+        .btn-secondary:hover {
+             background-color: #4a4a52; /* Lighter secondary accent */
         }
         
         #add-earning, #add-deduction {
-            background-color: #e7f3ff;
-            color: var(--primary-color);
+            background-color: rgba(174, 142, 93, 0.1);
+            color: var(--accent-primary);
             width: 100%;
             margin-top: 10px;
+            border: 1px dashed var(--accent-primary);
+        }
+        
+        #add-earning:hover, #add-deduction:hover {
+             background-color: rgba(174, 142, 93, 0.2);
         }
         
         .dynamic-field {
             display: flex;
             gap: 10px;
+            align-items: center;
             margin-bottom: 10px;
         }
         
@@ -165,28 +251,43 @@
             flex: 1;
         }
 
-        /* Preview Section Styles */
-        .preview-section {
-            background-color: var(--white-color);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px var(--shadow-color);
+        .btn-remove {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0 5px;
+            transition: color 0.3s;
+        }
+        
+        .btn-remove:hover {
+            color: var(--accent-primary);
         }
 
+        /*
+        ========================================
+        PREVIEW SECTION
+        ========================================
+        */
         .preview-header {
             padding: 20px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--accent-secondary);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
         .preview-header h2 {
-           margin: 0;
+            margin: 0;
+            font-size: 1.2rem;
         }
 
         #paystub-preview {
             padding: 30px;
             font-size: 14px;
+            background-color: #fff; /* White background for clean PDF export */
+            color: #333; /* Dark text for contrast on white */
         }
 
         .paystub-header {
@@ -197,12 +298,13 @@
         .paystub-header h3 {
             margin: 0;
             font-size: 24px;
-            color: var(--heading-color);
+            color: #111;
         }
 
         .paystub-header p {
             margin: 2px 0;
             font-size: 14px;
+            color: #555;
         }
 
         .info-grid {
@@ -213,6 +315,7 @@
             background-color: #f7f9fc;
             border-radius: 6px;
             margin-bottom: 20px;
+            border: 1px solid #e0e6ed;
         }
         
         .info-grid div {
@@ -235,7 +338,7 @@
         .paystub-table td {
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #e0e6ed;
         }
 
         .paystub-table th {
@@ -271,30 +374,53 @@
         .summary-item span {
             font-size: 18px;
             font-weight: 600;
-            color: var(--heading-color);
+            color: #111;
         }
         
         #net-pay-display {
             font-size: 22px;
             font-weight: 700;
-            color: var(--primary-color);
+            color: #4A90E2; /* A blue that works well on the white PDF */
+        }
+        
+        /*
+        ========================================
+        CONTACT PAGE & FOOTER
+        ========================================
+        */
+        #contact-page {
+            max-width: 700px;
+            margin: 40px auto;
         }
 
-        /* Footer Styles */
         .footer {
             text-align: center;
             margin-top: 30px;
             padding: 20px;
-            color: #777;
+            color: var(--text-tertiary);
             font-size: 0.9rem;
         }
+
+        .footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
         
-        /* Print-specific styles */
+        .footer a:hover {
+            color: var(--accent-primary);
+        }
+
+        /*
+        ========================================
+        PRINT & PDF STYLES
+        ========================================
+        */
         @media print {
             body {
                 background-color: #fff;
             }
-            .form-section, .preview-header, .header, .footer {
+            .form-section, .preview-header, .header, .footer, .page-container > nav, #contact-page {
                 display: none;
             }
             .main-layout {
@@ -303,6 +429,7 @@
             .preview-section {
                 box-shadow: none;
                 border: none;
+                padding: 0;
             }
             #paystub-preview {
                 padding: 0;
@@ -312,236 +439,259 @@
 </head>
 
 <body>
-
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <div class="logo">Paystub Generator Pro</div>
+            <div class="logo">Buell<span>Docs</span></div>
             <nav>
-                <!-- Add navigation links if needed -->
+                <button id="nav-generator" class="nav-link active">Generator</button>
+                <button id="nav-contact" class="nav-link">Contact</button>
             </nav>
         </header>
 
-        <!-- Main Content Layout -->
-        <main class="main-layout">
-            <!-- Form Section -->
-            <aside class="form-section">
-                <form id="paystub-form">
-                    <!-- Business Information -->
-                    <section>
-                        <h3>Business Information</h3>
-                        <div class="form-group">
-                            <label for="businessName">Business Name</label>
-                            <input type="text" id="businessName" name="businessName" value="Buell Industries, Inc.">
-                        </div>
-                        <div class="form-group">
-                            <label for="businessAddress">Business Address</label>
-                            <input type="text" id="businessAddress" name="businessAddress" value="123 Innovation Drive, Tech City, 54321">
-                        </div>
-                    </section>
+        <!-- Generator Page Content -->
+        <div id="generator-page">
+            <main class="main-layout">
+                <!-- Form Section -->
+                <aside class="card-section">
+                    <form id="paystub-form">
+                        <!-- Business Information -->
+                        <section>
+                            <h3>Business Information</h3>
+                            <div class="form-group">
+                                <label for="businessName">Business Name</label>
+                                <input type="text" id="businessName" name="businessName" value="Buell Industries, Inc.">
+                            </div>
+                            <div class="form-group">
+                                <label for="businessAddress">Business Address</label>
+                                <input type="text" id="businessAddress" name="businessAddress" value="123 Innovation Drive, Tech City, 54321">
+                            </div>
+                        </section>
 
-                    <!-- Employee Information -->
-                    <section>
-                        <h3>Employee Information</h3>
-                        <div class="form-group">
-                            <label for="employeeName">Employee Name</label>
-                            <input type="text" id="employeeName" name="employeeName" value="Jane Doe">
+                        <!-- Employee Information -->
+                        <section>
+                            <h3>Employee Information</h3>
+                            <div class="form-group">
+                                <label for="employeeName">Employee Name</label>
+                                <input type="text" id="employeeName" name="employeeName" value="Jane Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeAddress">Employee Address</label>
+                                <input type="text" id="employeeAddress" name="employeeAddress" value="456 Home Street, Suburbia, 12345">
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeId">Employee ID</label>
+                                <input type="text" id="employeeId" name="employeeId" value="EMP-007">
+                            </div>
+                        </section>
+                        
+                        <!-- Pay Period & Dates -->
+                        <section>
+                            <h3>Pay Period & Dates</h3>
+                            <div class="form-group">
+                                <label for="payPeriod">Pay Frequency</label>
+                                <select id="payPeriod" name="payPeriod">
+                                    <option value="weekly">Weekly</option>
+                                    <option value="bi-weekly" selected>Bi-Weekly</option>
+                                    <option value="semi-monthly">Semi-monthly</option>
+                                    <option value="monthly">Monthly</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="payDate">Pay Date</label>
+                                <input type="date" id="payDate" name="payDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="payPeriodStart">Pay Period Start</label>
+                                <input type="date" id="payPeriodStart" name="payPeriodStart">
+                            </div>
+                            <div class="form-group">
+                                <label for="payPeriodEnd">Pay Period End</label>
+                                <input type="date" id="payPeriodEnd" name="payPeriodEnd">
+                            </div>
+                        </section>
+
+                        <!-- Earnings -->
+                        <section>
+                            <h3>Earnings</h3>
+                            <div id="earnings-container">
+                                <div class="form-group dynamic-field">
+                                    <input type="text" name="earningDescription" placeholder="Description (e.g., Regular Pay)" value="Regular Pay">
+                                    <input type="number" name="earningAmount" placeholder="Amount" step="0.01" value="2500.00">
+                                </div>
+                            </div>
+                            <button type="button" id="add-earning" class="btn">+ Add Earning</button>
+                        </section>
+                        
+                        <!-- Deductions -->
+                        <section>
+                            <h3>Deductions</h3>
+                            <div id="deductions-container">
+                                <div class="form-group dynamic-field">
+                                    <input type="text" name="deductionDescription" placeholder="Description (e.g., Health Insurance)" value="Health Insurance">
+                                    <input type="number" name="deductionAmount" placeholder="Amount" step="0.01" value="150.00">
+                                </div>
+                            </div>
+                            <button type="button" id="add-deduction" class="btn">+ Add Deduction</button>
+                        </section>
+
+                        <!-- Tax Information -->
+                        <section>
+                            <h3>Tax Information</h3>
+                            <div class="form-group">
+                                <label for="taxYear">Tax Year</label>
+                                <select id="taxYear" name="taxYear">
+                                    <option value="2025">2025</option>
+                                    <option value="2024" selected>2024</option>
+                                    <option value="2023">2023</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="filingStatus">Federal Filing Status</label>
+                                <select id="filingStatus" name="filingStatus">
+                                    <option value="single">Single</option>
+                                    <option value="married">Married Filing Jointly</option>
+                                    <option value="hoh">Head of Household</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <select id="state" name="state">
+                                    <!-- States will be populated by JS -->
+                                </select>
+                            </div>
+                        </section>
+                    </form>
+                </aside>
+
+                <!-- Preview Section -->
+                <section class="card-section">
+                    <div class="preview-header">
+                        <h2>Paystub Preview</h2>
+                        <div>
+                            <button id="download-pdf" class="btn btn-primary">Download as PDF</button>
                         </div>
-                         <div class="form-group">
-                            <label for="employeeAddress">Employee Address</label>
-                            <input type="text" id="employeeAddress" name="employeeAddress" value="456 Home Street, Suburbia, 12345">
-                        </div>
-                        <div class="form-group">
-                            <label for="employeeId">Employee ID</label>
-                            <input type="text" id="employeeId" name="employeeId" value="EMP-007">
-                        </div>
-                    </section>
+                    </div>
                     
-                     <!-- Pay Period & Dates -->
-                    <section>
-                         <h3>Pay Period & Dates</h3>
-                         <div class="form-group">
-                            <label for="payPeriod">Pay Frequency</label>
-                            <select id="payPeriod" name="payPeriod">
-                                <option value="weekly">Weekly</option>
-                                <option value="bi-weekly" selected>Bi-Weekly</option>
-                                <option value="semi-monthly">Semi-monthly</option>
-                                <option value="monthly">Monthly</option>
-                            </select>
+                    <div id="paystub-preview">
+                        <!-- Header -->
+                        <div class="paystub-header">
+                            <h3 id="preview-businessName">Business Name</h3>
+                            <p id="preview-businessAddress">Business Address</p>
+                            <p><strong>PAYSTUB</strong></p>
                         </div>
-                        <div class="form-group">
-                            <label for="payDate">Pay Date</label>
-                            <input type="date" id="payDate" name="payDate">
-                        </div>
-                         <div class="form-group">
-                            <label for="payPeriodStart">Pay Period Start</label>
-                            <input type="date" id="payPeriodStart" name="payPeriodStart">
-                        </div>
-                        <div class="form-group">
-                            <label for="payPeriodEnd">Pay Period End</label>
-                            <input type="date" id="payPeriodEnd" name="payPeriodEnd">
-                        </div>
-                    </section>
 
-                    <!-- Earnings -->
-                    <section>
-                        <h3>Earnings</h3>
-                        <div id="earnings-container">
-                            <div class="form-group dynamic-field">
-                                <input type="text" name="earningDescription" placeholder="Description (e.g., Regular Pay)" value="Regular Pay">
-                                <input type="number" name="earningAmount" placeholder="Amount" step="0.01" value="2500.00">
+                        <!-- Employee and Pay Period Info -->
+                        <div class="info-grid">
+                            <div>
+                                <strong>Employee:</strong>
+                                <span id="preview-employeeName">Employee Name</span><br>
+                                <span id="preview-employeeAddress">Employee Address</span>
+                            </div>
+                            <div>
+                                <strong>Employee ID:</strong> <span id="preview-employeeId"></span><br>
+                                <strong>Pay Date:</strong> <span id="preview-payDate"></span><br>
+                                <strong>Pay Period:</strong> <span id="preview-payPeriodRange"></span>
                             </div>
                         </div>
-                        <button type="button" id="add-earning" class="btn">+ Add Earning</button>
-                    </section>
-                    
-                    <!-- Deductions -->
-                     <section>
-                        <h3>Deductions</h3>
-                        <div id="deductions-container">
-                           <div class="form-group dynamic-field">
-                                <input type="text" name="deductionDescription" placeholder="Description (e.g., Health Insurance)" value="Health Insurance">
-                                <input type="number" name="deductionAmount" placeholder="Amount" step="0.01" value="150.00">
+                        
+                        <!-- Main Data Tables -->
+                        <div class="main-layout">
+                            <div>
+                                <h4>Earnings</h4>
+                                <table class="paystub-table" id="preview-earnings-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th class="text-right">Current</th>
+                                            <th class="text-right">YTD</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <h4>Taxes</h4>
+                                <table class="paystub-table" id="preview-taxes-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th class="text-right">Current</th>
+                                            <th class="text-right">YTD</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <h4>Deductions</h4>
+                                <table class="paystub-table" id="preview-deductions-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th class="text-right">Current</th>
+                                            <th class="text-right">YTD</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                         </div>
-                        <button type="button" id="add-deduction" class="btn">+ Add Deduction</button>
-                    </section>
 
-                    <!-- Tax Information -->
-                    <section>
-                        <h3>Tax Information</h3>
-                        <div class="form-group">
-                            <label for="taxYear">Tax Year</label>
-                            <select id="taxYear" name="taxYear">
-                               <option value="2025">2025</option>
-                               <option value="2024" selected>2024</option>
-                               <option value="2023">2023</option>
-                            </select>
+                        <!-- Summary -->
+                        <div class="paystub-summary">
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <strong>Gross Pay</strong>
+                                    <span id="preview-grossPay">$0.00</span>
+                                </div>
+                                <div class="summary-item">
+                                    <strong>Taxes</strong>
+                                    <span id="preview-totalTaxes">$0.00</span>
+                                </div>
+                                <div class="summary-item">
+                                    <strong>Deductions</strong>
+                                    <span id="preview-totalDeductions">$0.00</span>
+                                </div>
+                                <div class="summary-item">
+                                    <strong>Net Pay</strong>
+                                    <span id="net-pay-display">$0.00</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="filingStatus">Federal Filing Status</label>
-                            <select id="filingStatus" name="filingStatus">
-                                <option value="single">Single</option>
-                                <option value="married">Married Filing Jointly</option>
-                                <option value="hoh">Head of Household</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="state">State</label>
-                            <select id="state" name="state">
-                                <!-- States will be populated by JS -->
-                            </select>
-                        </div>
-                    </section>
+                    </div>
+                </section>
+            </main>
+        </div>
+        
+        <!-- Contact Page Content -->
+        <div id="contact-page" class="hidden">
+             <main class="card-section">
+                <h2>Contact Us</h2>
+                <p style="color: var(--text-secondary); margin-top: -10px; margin-bottom: 30px;">
+                    Have questions or feedback? Send us a message and we'll get back to you.
+                </p>
+                <!-- The form action uses "mailto" to open the user's default email client. -->
+                <form action="mailto:buellschool@gmail.com" method="post" enctype="text/plain">
+                     <div class="form-group">
+                        <label for="contactEmail">Your Email Address</label>
+                        <input type="email" id="contactEmail" name="email" required>
+                     </div>
+                      <div class="form-group">
+                        <label for="contactSubject">Subject</label>
+                        <input type="text" id="contactSubject" name="subject" required value="Feedback for BuellDocs">
+                     </div>
+                     <div class="form-group">
+                         <label for="contactMessage">Message</label>
+                         <textarea id="contactMessage" name="message" required></textarea>
+                     </div>
+                     <button type="submit" class="btn btn-primary" style="width: 100%;">Send Email</button>
                 </form>
-            </aside>
+             </main>
+        </div>
 
-            <!-- Preview Section -->
-            <section class="preview-section">
-                <div class="preview-header">
-                     <h2>Paystub Preview</h2>
-                     <div>
-                        <button id="download-pdf" class="btn btn-primary">Download as PDF</button>
-                    </div>
-                </div>
-                
-                <div id="paystub-preview">
-                    <!-- Header -->
-                    <div class="paystub-header">
-                        <h3 id="preview-businessName">Business Name</h3>
-                        <p id="preview-businessAddress">Business Address</p>
-                        <p><strong>PAYSTUB</strong></p>
-                    </div>
-
-                    <!-- Employee and Pay Period Info -->
-                    <div class="info-grid">
-                        <div>
-                            <strong>Employee:</strong>
-                            <span id="preview-employeeName">Employee Name</span><br>
-                            <span id="preview-employeeAddress">Employee Address</span>
-                        </div>
-                        <div>
-                             <strong>Employee ID:</strong> <span id="preview-employeeId"></span><br>
-                             <strong>Pay Date:</strong> <span id="preview-payDate"></span><br>
-                             <strong>Pay Period:</strong> <span id="preview-payPeriodRange"></span>
-                        </div>
-                    </div>
-                    
-                    <!-- Main Data Tables -->
-                    <div class="main-layout">
-                        <div>
-                             <h4>Earnings</h4>
-                            <table class="paystub-table" id="preview-earnings-table">
-                                <thead>
-                                    <tr>
-                                        <th>Description</th>
-                                        <th class="text-right">Current</th>
-                                        <th class="text-right">YTD</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Populated by JS -->
-                                </tbody>
-                            </table>
-                        </div>
-                        <div>
-                            <h4>Taxes</h4>
-                            <table class="paystub-table" id="preview-taxes-table">
-                                <thead>
-                                    <tr>
-                                        <th>Description</th>
-                                        <th class="text-right">Current</th>
-                                        <th class="text-right">YTD</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Populated by JS -->
-                                </tbody>
-                            </table>
-                             <h4>Deductions</h4>
-                            <table class="paystub-table" id="preview-deductions-table">
-                                 <thead>
-                                    <tr>
-                                        <th>Description</th>
-                                        <th class="text-right">Current</th>
-                                        <th class="text-right">YTD</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Populated by JS -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Summary -->
-                    <div class="paystub-summary">
-                        <div class="summary-grid">
-                            <div class="summary-item">
-                                <strong>Gross Pay</strong>
-                                <span id="preview-grossPay">$0.00</span>
-                            </div>
-                            <div class="summary-item">
-                                <strong>Taxes</strong>
-                                <span id="preview-totalTaxes">$0.00</span>
-                            </div>
-                            <div class="summary-item">
-                                <strong>Deductions</strong>
-                                <span id="preview-totalDeductions">$0.00</span>
-                            </div>
-                             <div class="summary-item">
-                                <strong>Net Pay</strong>
-                                <span id="net-pay-display">$0.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
 
         <!-- Footer -->
         <footer class="footer">
-            <p>&copy; 2025 Paystub Generator Pro. Powered by <a href="#">Buell Docs</a>.</p>
+            <p>&copy; 2025 BuellDocs Paystub Generator. Powered by <a href="#" target="_blank">BuellDocs</a>.</p>
         </footer>
     </div>
     
@@ -559,139 +709,21 @@
         // 2. Embedded Data (from JSON files)
         // This prevents the need for network requests (fetch)
         const taxTablesData = {
-          "2023": {
-            "federal": {
-              "single": { "brackets": [{ "rate": 0.10, "upto": 11000 }, { "rate": 0.12, "upto": 44725 }, { "rate": 0.22, "upto": 95375 }, { "rate": 0.24, "upto": 182100 }, { "rate": 0.32, "upto": 231250 }, { "rate": 0.35, "upto": 578125 }, { "rate": 0.37, "upto": Infinity }], "deduction": 13850 },
-              "married": { "brackets": [{ "rate": 0.10, "upto": 22000 }, { "rate": 0.12, "upto": 89450 }, { "rate": 0.22, "upto": 190750 }, { "rate": 0.24, "upto": 364200 }, { "rate": 0.32, "upto": 462500 }, { "rate": 0.35, "upto": 693750 }, { "rate": 0.37, "upto": Infinity }], "deduction": 27700 },
-              "hoh": { "brackets": [{ "rate": 0.10, "upto": 15700 }, { "rate": 0.12, "upto": 59850 }, { "rate": 0.22, "upto": 95350 }, { "rate": 0.24, "upto": 182100 }, { "rate": 0.32, "upto": 231250 }, { "rate": 0.35, "upto": 578100 }, { "rate": 0.37, "upto": Infinity }], "deduction": 20800 }
+            "2023":{
+                "federal":{"single":{"brackets":[{"rate":0.10,"upto":11000},{"rate":0.12,"upto":44725},{"rate":0.22,"upto":95375},{"rate":0.24,"upto":182100},{"rate":0.32,"upto":231250},{"rate":0.35,"upto":578125},{"rate":0.37,"upto":Infinity}],"deduction":13850},"married":{"brackets":[{"rate":0.10,"upto":22000},{"rate":0.12,"upto":89450},{"rate":0.22,"upto":190750},{"rate":0.24,"upto":364200},{"rate":0.32,"upto":462500},{"rate":0.35,"upto":693750},{"rate":0.37,"upto":Infinity}],"deduction":27700},"hoh":{"brackets":[{"rate":0.10,"upto":15700},{"rate":0.12,"upto":59850},{"rate":0.22,"upto":95350},{"rate":0.24,"upto":182100},{"rate":0.32,"upto":231250},{"rate":0.35,"upto":578100},{"rate":0.37,"upto":Infinity}],"deduction":20800}},
+                "fica":{"social_security_rate":0.062,"social_security_limit":160200,"medicare_rate":0.0145},
+                "states":{"AL":{"single":{"brackets":[{"rate":0.02,"upto":500},{"rate":0.04,"upto":3000},{"rate":0.05,"upto":Infinity}]}},"CA":{"single":{"brackets":[{"rate":0.01,"upto":10412},{"rate":0.02,"upto":24684},{"rate":0.04,"upto":38959},{"rate":0.06,"upto":54081},{"rate":0.08,"upto":68350},{"rate":0.093,"upto":349137},{"rate":0.103,"upto":418961},{"rate":0.113,"upto":698271},{"rate":0.123,"upto":Infinity}]}},"NY":{"single":{"brackets":[{"rate":0.04,"upto":8500},{"rate":0.045,"upto":11700},{"rate":0.0525,"upto":13900},{"rate":0.0585,"upto":80650},{"rate":0.0625,"upto":215400},{"rate":0.0685,"upto":1077550},{"rate":0.0965,"upto":5000000},{"rate":0.103,"upto":25000000},{"rate":0.109,"upto":Infinity}]}}}
             },
-            "fica": { "social_security_rate": 0.062, "social_security_limit": 160200, "medicare_rate": 0.0145 },
-            "states": {
-              "AL": { "single": { "brackets": [{ "rate": 0.02, "upto": 500 }, { "rate": 0.04, "upto": 3000 }, { "rate": 0.05, "upto": Infinity }] } },
-              "CA": { "single": { "brackets": [{ "rate": 0.01, "upto": 10412 }, { "rate": 0.02, "upto": 24684 }, { "rate": 0.04, "upto": 38959 }, { "rate": 0.06, "upto": 54081 }, { "rate": 0.08, "upto": 68350 }, { "rate": 0.093, "upto": 349137 }, { "rate": 0.103, "upto": 418961 }, { "rate": 0.113, "upto": 698271 }, { "rate": 0.123, "upto": Infinity }] } },
-              "NY": { "single": { "brackets": [{ "rate": 0.04, "upto": 8500 }, { "rate": 0.045, "upto": 11700 }, { "rate": 0.0525, "upto": 13900 }, { "rate": 0.0585, "upto": 80650 }, { "rate": 0.0625, "upto": 215400 }, { "rate": 0.0685, "upto": 1077550 }, { "rate": 0.0965, "upto": 5000000 }, { "rate": 0.103, "upto": 25000000 }, { "rate": 0.109, "upto": Infinity }] } }
-            }
-          },
-          "2024": {
-            "federal": {
-              "single": { "brackets": [{ "rate": 0.10, "upto": 11600 }, { "rate": 0.12, "upto": 47150 }, { "rate": 0.22, "upto": 100525 }, { "rate": 0.24, "upto": 191950 }, { "rate": 0.32, "upto": 243725 }, { "rate": 0.35, "upto": 609350 }, { "rate": 0.37, "upto": Infinity }], "deduction": 14600 },
-              "married": { "brackets": [{ "rate": 0.10, "upto": 23200 }, { "rate": 0.12, "upto": 94300 }, { "rate": 0.22, "upto": 201050 }, { "rate": 0.24, "upto": 383900 }, { "rate": 0.32, "upto": 487450 }, { "rate": 0.35, "upto": 731200 }, { "rate": 0.37, "upto": Infinity }], "deduction": 29200 },
-              "hoh": { "brackets": [{ "rate": 0.10, "upto": 16550 }, { "rate": 0.12, "upto": 63100 }, { "rate": 0.22, "upto": 100500 }, { "rate": 0.24, "upto": 191950 }, { "rate": 0.32, "upto": 243700 }, { "rate": 0.35, "upto": 609350 }, { "rate": 0.37, "upto": Infinity }], "deduction": 21900 }
+            "2024":{
+                "federal":{"single":{"brackets":[{"rate":0.10,"upto":11600},{"rate":0.12,"upto":47150},{"rate":0.22,"upto":100525},{"rate":0.24,"upto":191950},{"rate":0.32,"upto":243725},{"rate":0.35,"upto":609350},{"rate":0.37,"upto":Infinity}],"deduction":14600},"married":{"brackets":[{"rate":0.10,"upto":23200},{"rate":0.12,"upto":94300},{"rate":0.22,"upto":201050},{"rate":0.24,"upto":383900},{"rate":0.32,"upto":487450},{"rate":0.35,"upto":731200},{"rate":0.37,"upto":Infinity}],"deduction":29200},"hoh":{"brackets":[{"rate":0.10,"upto":16550},{"rate":0.12,"upto":63100},{"rate":0.22,"upto":100500},{"rate":0.24,"upto":191950},{"rate":0.32,"upto":243700},{"rate":0.35,"upto":609350},{"rate":0.37,"upto":Infinity}],"deduction":21900}},
+                "fica":{"social_security_rate":0.062,"social_security_limit":168600,"medicare_rate":0.0145},
+                "states":{"AL":{"name":"Alabama","single":{"brackets":[{"rate":0.02,"upto":500},{"rate":0.04,"upto":3000},{"rate":0.05,"upto":Infinity}]}},"AK":{"name":"Alaska","single":{"brackets":[]}},"AZ":{"name":"Arizona","single":{"brackets":[{"rate":0.025,"upto":Infinity}]}},"AR":{"name":"Arkansas","single":{"brackets":[{"rate":0.02,"upto":24299},{"rate":0.04,"upto":87000},{"rate":0.049,"upto":Infinity}]}},"CA":{"name":"California","single":{"brackets":[{"rate":0.01,"upto":10412},{"rate":0.02,"upto":24684},{"rate":0.04,"upto":38959},{"rate":0.06,"upto":54081},{"rate":0.08,"upto":68350},{"rate":0.093,"upto":349137},{"rate":0.103,"upto":418961},{"rate":0.113,"upto":698271},{"rate":0.123,"upto":Infinity}]}},"CO":{"name":"Colorado","single":{"brackets":[{"rate":0.044,"upto":Infinity}]}},"CT":{"name":"Connecticut","single":{"brackets":[{"rate":0.03,"upto":10000},{"rate":0.05,"upto":50000},{"rate":0.055,"upto":100000},{"rate":0.06,"upto":200000},{"rate":0.065,"upto":250000},{"rate":0.069,"upto":500000},{"rate":0.0699,"upto":Infinity}]}},"DE":{"name":"Delaware","single":{"brackets":[{"rate":0.022,"upto":5000},{"rate":0.039,"upto":10000},{"rate":0.048,"upto":20000},{"rate":0.052,"upto":25000},{"rate":0.0555,"upto":60000},{"rate":0.066,"upto":Infinity}]}},"FL":{"name":"Florida","single":{"brackets":[]}},"GA":{"name":"Georgia","single":{"brackets":[{"rate":0.0549,"upto":Infinity}]}},"HI":{"name":"Hawaii","single":{"brackets":[{"rate":0.014,"upto":2400},{"rate":0.032,"upto":4800},{"rate":0.055,"upto":9600},{"rate":0.064,"upto":14400},{"rate":0.068,"upto":19200},{"rate":0.072,"upto":24000},{"rate":0.076,"upto":36000},{"rate":0.079,"upto":48000},{"rate":0.0825,"upto":150000},{"rate":0.09,"upto":175000},{"rate":0.1,"upto":200000},{"rate":0.11,"upto":Infinity}]}},"ID":{"name":"Idaho","single":{"brackets":[{"rate":0.058,"upto":Infinity}]}},"IL":{"name":"Illinois","single":{"brackets":[{"rate":0.0495,"upto":Infinity}]}},"IN":{"name":"Indiana","single":{"brackets":[{"rate":0.0315,"upto":Infinity}]}},"IA":{"name":"Iowa","single":{"brackets":[{"rate":0.057,"upto":Infinity}]}},"KS":{"name":"Kansas","single":{"brackets":[{"rate":0.031,"upto":15000},{"rate":0.0525,"upto":30000},{"rate":0.057,"upto":Infinity}]}},"KY":{"name":"Kentucky","single":{"brackets":[{"rate":0.045,"upto":Infinity}]}},"LA":{"name":"Louisiana","single":{"brackets":[{"rate":0.0185,"upto":12500},{"rate":0.037,"upto":50000},{"rate":0.0425,"upto":Infinity}]}},"ME":{"name":"Maine","single":{"brackets":[{"rate":0.058,"upto":24500},{"rate":0.0675,"upto":58050},{"rate":0.0715,"upto":Infinity}]}},"MD":{"name":"Maryland","single":{"brackets":[{"rate":0.02,"upto":1000},{"rate":0.03,"upto":2000},{"rate":0.04,"upto":3000},{"rate":0.0475,"upto":100000},{"rate":0.05,"upto":125000},{"rate":0.0525,"upto":150000},{"rate":0.055,"upto":250000},{"rate":0.0575,"upto":Infinity}]}},"MA":{"name":"Massachusetts","single":{"brackets":[{"rate":0.05,"upto":Infinity}]}},"MI":{"name":"Michigan","single":{"brackets":[{"rate":0.0425,"upto":Infinity}]}},"MN":{"name":"Minnesota","single":{"brackets":[{"rate":0.0535,"upto":30070},{"rate":0.068,"upto":98750},{"rate":0.0785,"upto":183340},{"rate":0.0985,"upto":Infinity}]}},"MS":{"name":"Mississippi","single":{"brackets":[{"rate":0.04,"upto":5000},{"rate":0.05,"upto":Infinity}]}},"MO":{"name":"Missouri","single":{"brackets":[{"rate":0.0495,"upto":Infinity}]}},"MT":{"name":"Montana","single":{"brackets":[{"rate":0.047,"upto":20500},{"rate":0.059,"upto":Infinity}]}},"NE":{"name":"Nebraska","single":{"brackets":[{"rate":0.0246,"upto":3220},{"rate":0.0351,"upto":19340},{"rate":0.0501,"upto":32230},{"rate":0.0664,"upto":Infinity}]}},"NV":{"name":"Nevada","single":{"brackets":[]}},"NH":{"name":"New Hampshire","single":{"brackets":[]}},"NJ":{"name":"New Jersey","single":{"brackets":[{"rate":0.014,"upto":20000},{"rate":0.0175,"upto":35000},{"rate":0.035,"upto":40000},{"rate":0.05525,"upto":75000},{"rate":0.0637,"upto":500000},{"rate":0.0897,"upto":1000000},{"rate":0.1075,"upto":Infinity}]}},"NM":{"name":"New Mexico","single":{"brackets":[{"rate":0.017,"upto":5500},{"rate":0.032,"upto":11000},{"rate":0.049,"upto":16000},{"rate":0.059,"upto":Infinity}]}},"NY":{"name":"New York","single":{"brackets":[{"rate":0.04,"upto":8500},{"rate":0.045,"upto":11700},{"rate":0.0525,"upto":13900},{"rate":0.055,"upto":80650},{"rate":0.06,"upto":215400},{"rate":0.0685,"upto":1077550},{"rate":0.0965,"upto":5000000},{"rate":0.103,"upto":25000000},{"rate":0.109,"upto":Infinity}]}},"NC":{"name":"North Carolina","single":{"brackets":[{"rate":0.0475,"upto":Infinity}]}},"ND":{"name":"North Dakota","single":{"brackets":[{"rate":0.011,"upto":44725},{"rate":0.0204,"upto":90425},{"rate":0.0227,"upto":222525},{"rate":0.0264,"upto":473975},{"rate":0.029,"upto":Infinity}]}},"OH":{"name":"Ohio","single":{"brackets":[{"rate":0.02765,"upto":26050},{"rate":0.03226,"upto":100000},{"rate":0.03688,"upto":Infinity}]}},"OK":{"name":"Oklahoma","single":{"brackets":[{"rate":0.005,"upto":1000},{"rate":0.01,"upto":2500},{"rate":0.02,"upto":3750},{"rate":0.03,"upto":4900},{"rate":0.04,"upto":7200},{"rate":0.0475,"upto":Infinity}]}},"OR":{"name":"Oregon","single":{"brackets":[{"rate":0.0475,"upto":3750},{"rate":0.0675,"upto":9450},{"rate":0.0875,"upto":125000},{"rate":0.099,"upto":Infinity}]}},"PA":{"name":"Pennsylvania","single":{"brackets":[{"rate":0.0307,"upto":Infinity}]}},"RI":{"name":"Rhode Island","single":{"brackets":[{"rate":0.0375,"upto":68250},{"rate":0.0475,"upto":155050},{"rate":0.0599,"upto":Infinity}]}},"SC":{"name":"South Carolina","single":{"brackets":[{"rate":0.03,"upto":3210},{"rate":0.065,"upto":Infinity}]}},"SD":{"name":"South Dakota","single":{"brackets":[]}},"TN":{"name":"Tennessee","single":{"brackets":[]}},"TX":{"name":"Texas","single":{"brackets":[]}},"UT":{"name":"Utah","single":{"brackets":[{"rate":0.0465,"upto":Infinity}]}},"VT":{"name":"Vermont","single":{"brackets":[{"rate":0.0335,"upto":45300},{"rate":0.066,"upto":109800},{"rate":0.076,"upto":229300},{"rate":0.0875,"upto":Infinity}]}},"VA":{"name":"Virginia","single":{"brackets":[{"rate":0.02,"upto":3000},{"rate":0.03,"upto":5000},{"rate":0.05,"upto":17000},{"rate":0.0575,"upto":Infinity}]}},"WA":{"name":"Washington","single":{"brackets":[]}},"WV":{"name":"West Virginia","single":{"brackets":[{"rate":0.0236,"upto":10000},{"rate":0.0315,"upto":25000},{"rate":0.0354,"upto":40000},{"rate":0.0472,"upto":60000},{"rate":0.0512,"upto":Infinity}]}},"WI":{"name":"Wisconsin","single":{"brackets":[{"rate":0.0354,"upto":13600},{"rate":0.0465,"upto":27210},{"rate":0.053,"upto":300090},{"rate":0.0765,"upto":Infinity}]}},"WY":{"name":"Wyoming","single":{"brackets":[]}}}
             },
-            "fica": { "social_security_rate": 0.062, "social_security_limit": 168600, "medicare_rate": 0.0145 },
-            "states": {
-                "AL": {"name": "Alabama","single": {"brackets": [{"rate": 0.02,"upto": 500},{"rate": 0.04,"upto": 3000},{"rate": 0.05,"upto": Infinity}]}},
-                "AK": {"name": "Alaska","single": {"brackets": []}},
-                "AZ": {"name": "Arizona","single": {"brackets": [{"rate": 0.025,"upto": Infinity}]}},
-                "AR": {"name": "Arkansas","single": {"brackets": [{"rate": 0.02,"upto": 24299},{"rate": 0.04,"upto": 87000},{"rate": 0.049,"upto": Infinity}]}},
-                "CA": {"name": "California","single": {"brackets": [{"rate": 0.01,"upto": 10412},{"rate": 0.02,"upto": 24684},{"rate": 0.04,"upto": 38959},{"rate": 0.06,"upto": 54081},{"rate": 0.08,"upto": 68350},{"rate": 0.093,"upto": 349137},{"rate": 0.103,"upto": 418961},{"rate": 0.113,"upto": 698271},{"rate": 0.123,"upto": Infinity}]}},
-                "CO": {"name": "Colorado","single": {"brackets": [{"rate": 0.044,"upto": Infinity}]}},
-                "CT": {"name": "Connecticut","single": {"brackets": [{"rate": 0.03,"upto": 10000},{"rate": 0.05,"upto": 50000},{"rate": 0.055,"upto": 100000},{"rate": 0.06,"upto": 200000},{"rate": 0.065,"upto": 250000},{"rate": 0.069,"upto": 500000},{"rate": 0.0699,"upto": Infinity}]}},
-                "DE": {"name": "Delaware","single": {"brackets": [{"rate": 0.022,"upto": 5000},{"rate": 0.039,"upto": 10000},{"rate": 0.048,"upto": 20000},{"rate": 0.052,"upto": 25000},{"rate": 0.0555,"upto": 60000},{"rate": 0.066,"upto": Infinity}]}},
-                "FL": {"name": "Florida","single": {"brackets": []}},
-                "GA": {"name": "Georgia","single": {"brackets": [{"rate": 0.0549,"upto": Infinity}]}},
-                "HI": {"name": "Hawaii","single": {"brackets": [{"rate": 0.014,"upto": 2400},{"rate": 0.032,"upto": 4800},{"rate": 0.055,"upto": 9600},{"rate": 0.064,"upto": 14400},{"rate": 0.068,"upto": 19200},{"rate": 0.072,"upto": 24000},{"rate": 0.076,"upto": 36000},{"rate": 0.079,"upto": 48000},{"rate": 0.0825,"upto": 150000},{"rate": 0.09,"upto": 175000},{"rate": 0.1,"upto": 200000},{"rate": 0.11,"upto": Infinity}]}},
-                "ID": {"name": "Idaho","single": {"brackets": [{"rate": 0.058,"upto": Infinity}]}},
-                "IL": {"name": "Illinois","single": {"brackets": [{"rate": 0.0495,"upto": Infinity}]}},
-                "IN": {"name": "Indiana","single": {"brackets": [{"rate": 0.0315,"upto": Infinity}]}},
-                "IA": {"name": "Iowa","single": {"brackets": [{"rate": 0.057,"upto": Infinity}]}},
-                "KS": {"name": "Kansas","single": {"brackets": [{"rate": 0.031,"upto": 15000},{"rate": 0.0525,"upto": 30000},{"rate": 0.057,"upto": Infinity}]}},
-                "KY": {"name": "Kentucky","single": {"brackets": [{"rate": 0.045,"upto": Infinity}]}},
-                "LA": {"name": "Louisiana","single": {"brackets": [{"rate": 0.0185,"upto": 12500},{"rate": 0.037,"upto": 50000},{"rate": 0.0425,"upto": Infinity}]}},
-                "ME": {"name": "Maine","single": {"brackets": [{"rate": 0.058,"upto": 24500},{"rate": 0.0675,"upto": 58050},{"rate": 0.0715,"upto": Infinity}]}},
-                "MD": {"name": "Maryland","single": {"brackets": [{"rate": 0.02,"upto": 1000},{"rate": 0.03,"upto": 2000},{"rate": 0.04,"upto": 3000},{"rate": 0.0475,"upto": 100000},{"rate": 0.05,"upto": 125000},{"rate": 0.0525,"upto": 150000},{"rate": 0.055,"upto": 250000},{"rate": 0.0575,"upto": Infinity}]}},
-                "MA": {"name": "Massachusetts","single": {"brackets": [{"rate": 0.05,"upto": Infinity}]}},
-                "MI": {"name": "Michigan","single": {"brackets": [{"rate": 0.0425,"upto": Infinity}]}},
-                "MN": {"name": "Minnesota","single": {"brackets": [{"rate": 0.0535,"upto": 30070},{"rate": 0.068,"upto": 98750},{"rate": 0.0785,"upto": 183340},{"rate": 0.0985,"upto": Infinity}]}},
-                "MS": {"name": "Mississippi","single": {"brackets": [{"rate": 0.04,"upto": 5000},{"rate": 0.05,"upto": Infinity}]}},
-                "MO": {"name": "Missouri","single": {"brackets": [{"rate": 0.0495,"upto": Infinity}]}},
-                "MT": {"name": "Montana","single": {"brackets": [{"rate": 0.047,"upto": 20500},{"rate": 0.059,"upto": Infinity}]}},
-                "NE": {"name": "Nebraska","single": {"brackets": [{"rate": 0.0246,"upto": 3220},{"rate": 0.0351,"upto": 19340},{"rate": 0.0501,"upto": 32230},{"rate": 0.0664,"upto": Infinity}]}},
-                "NV": {"name": "Nevada","single": {"brackets": []}},
-                "NH": {"name": "New Hampshire","single": {"brackets": []}},
-                "NJ": {"name": "New Jersey","single": {"brackets": [{"rate": 0.014,"upto": 20000},{"rate": 0.0175,"upto": 35000},{"rate": 0.035,"upto": 40000},{"rate": 0.05525,"upto": 75000},{"rate": 0.0637,"upto": 500000},{"rate": 0.0897,"upto": 1000000},{"rate": 0.1075,"upto": Infinity}]}},
-                "NM": {"name": "New Mexico","single": {"brackets": [{"rate": 0.017,"upto": 5500},{"rate": 0.032,"upto": 11000},{"rate": 0.049,"upto": 16000},{"rate": 0.059,"upto": Infinity}]}},
-                "NY": {"name": "New York","single": {"brackets": [{"rate": 0.04,"upto": 8500},{"rate": 0.045,"upto": 11700},{"rate": 0.0525,"upto": 13900},{"rate": 0.055,"upto": 80650},{"rate": 0.06,"upto": 215400},{"rate": 0.0685,"upto": 1077550},{"rate": 0.0965,"upto": 5000000},{"rate": 0.103,"upto": 25000000},{"rate": 0.109,"upto": Infinity}]}},
-                "NC": {"name": "North Carolina","single": {"brackets": [{"rate": 0.0475,"upto": Infinity}]}},
-                "ND": {"name": "North Dakota","single": {"brackets": [{"rate": 0.011,"upto": 44725},{"rate": 0.0204,"upto": 90425},{"rate": 0.0227,"upto": 222525},{"rate": 0.0264,"upto": 473975},{"rate": 0.029,"upto": Infinity}]}},
-                "OH": {"name": "Ohio","single": {"brackets": [{"rate": 0.02765,"upto": 26050},{"rate": 0.03226,"upto": 100000},{"rate": 0.03688,"upto": Infinity}]}},
-                "OK": {"name": "Oklahoma","single": {"brackets": [{"rate": 0.005,"upto": 1000},{"rate": 0.01,"upto": 2500},{"rate": 0.02,"upto": 3750},{"rate": 0.03,"upto": 4900},{"rate": 0.04,"upto": 7200},{"rate": 0.0475,"upto": Infinity}]}},
-                "OR": {"name": "Oregon","single": {"brackets": [{"rate": 0.0475,"upto": 3750},{"rate": 0.0675,"upto": 9450},{"rate": 0.0875,"upto": 125000},{"rate": 0.099,"upto": Infinity}]}},
-                "PA": {"name": "Pennsylvania","single": {"brackets": [{"rate": 0.0307,"upto": Infinity}]}},
-                "RI": {"name": "Rhode Island","single": {"brackets": [{"rate": 0.0375,"upto": 68250},{"rate": 0.0475,"upto": 155050},{"rate": 0.0599,"upto": Infinity}]}},
-                "SC": {"name": "South Carolina","single": {"brackets": [{"rate": 0.03,"upto": 3210},{"rate": 0.065,"upto": Infinity}]}},
-                "SD": {"name": "South Dakota","single": {"brackets": []}},
-                "TN": {"name": "Tennessee","single": {"brackets": []}},
-                "TX": {"name": "Texas","single": {"brackets": []}},
-                "UT": {"name": "Utah","single": {"brackets": [{"rate": 0.0465,"upto": Infinity}]}},
-                "VT": {"name": "Vermont","single": {"brackets": [{"rate": 0.0335,"upto": 45300},{"rate": 0.066,"upto": 109800},{"rate": 0.076,"upto": 229300},{"rate": 0.0875,"upto": Infinity}]}},
-                "VA": {"name": "Virginia","single": {"brackets": [{"rate": 0.02,"upto": 3000},{"rate": 0.03,"upto": 5000},{"rate": 0.05,"upto": 17000},{"rate": 0.0575,"upto": Infinity}]}},
-                "WA": {"name": "Washington","single": {"brackets": []}},
-                "WV": {"name": "West Virginia","single": {"brackets": [{"rate": 0.0236,"upto": 10000},{"rate": 0.0315,"upto": 25000},{"rate": 0.0354,"upto": 40000},{"rate": 0.0472,"upto": 60000},{"rate": 0.0512,"upto": Infinity}]}},
-                "WI": {"name": "Wisconsin","single": {"brackets": [{"rate": 0.0354,"upto": 13600},{"rate": 0.0465,"upto": 27210},{"rate": 0.053,"upto": 300090},{"rate": 0.0765,"upto": Infinity}]}},
-                "WY": {"name": "Wyoming","single": {"brackets": []}}
+            "2025":{
+                "federal":{"single":{"brackets":[{"rate":0.10,"upto":12000},{"rate":0.12,"upto":48500},{"rate":0.22,"upto":103500},{"rate":0.24,"upto":197500},{"rate":0.32,"upto":250000},{"rate":0.35,"upto":625000},{"rate":0.37,"upto":Infinity}],"deduction":15000},"married":{"brackets":[{"rate":0.10,"upto":24000},{"rate":0.12,"upto":97000},{"rate":0.22,"upto":207000},{"rate":0.24,"upto":395000},{"rate":0.32,"upto":500000},{"rate":0.35,"upto":750000},{"rate":0.37,"upto":Infinity}],"deduction":30000},"hoh":{"brackets":[{"rate":0.10,"upto":17000},{"rate":0.12,"upto":65000},{"rate":0.22,"upto":103500},{"rate":0.24,"upto":197500},{"rate":0.32,"upto":250000},{"rate":0.35,"upto":625000},{"rate":0.37,"upto":Infinity}],"deduction":22500}},
+                "fica":{"social_security_rate":0.062,"social_security_limit":175000,"medicare_rate":0.0145},
+                "states":{"AL":{"name":"Alabama","single":{"brackets":[{"rate":0.02,"upto":500},{"rate":0.04,"upto":3000},{"rate":0.05,"upto":Infinity}]}},"AK":{"name":"Alaska","single":{"brackets":[]}},"AZ":{"name":"Arizona","single":{"brackets":[{"rate":0.025,"upto":Infinity}]}},"AR":{"name":"Arkansas","single":{"brackets":[{"rate":0.02,"upto":24299},{"rate":0.04,"upto":87000},{"rate":0.049,"upto":Infinity}]}},"CA":{"name":"California","single":{"brackets":[{"rate":0.01,"upto":10412},{"rate":0.02,"upto":24684},{"rate":0.04,"upto":38959},{"rate":0.06,"upto":54081},{"rate":0.08,"upto":68350},{"rate":0.093,"upto":349137},{"rate":0.103,"upto":418961},{"rate":0.113,"upto":698271},{"rate":0.123,"upto":Infinity}]}},"CO":{"name":"Colorado","single":{"brackets":[{"rate":0.044,"upto":Infinity}]}},"CT":{"name":"Connecticut","single":{"brackets":[{"rate":0.03,"upto":10000},{"rate":0.05,"upto":50000},{"rate":0.055,"upto":100000},{"rate":0.06,"upto":200000},{"rate":0.065,"upto":250000},{"rate":0.069,"upto":500000},{"rate":0.0699,"upto":Infinity}]}},"DE":{"name":"Delaware","single":{"brackets":[{"rate":0.022,"upto":5000},{"rate":0.039,"upto":10000},{"rate":0.048,"upto":20000},{"rate":0.052,"upto":25000},{"rate":0.0555,"upto":60000},{"rate":0.066,"upto":Infinity}]}},"FL":{"name":"Florida","single":{"brackets":[]}},"GA":{"name":"Georgia","single":{"brackets":[{"rate":0.0549,"upto":Infinity}]}},"HI":{"name":"Hawaii","single":{"brackets":[{"rate":0.014,"upto":2400},{"rate":0.032,"upto":4800},{"rate":0.055,"upto":9600},{"rate":0.064,"upto":14400},{"rate":0.068,"upto":19200},{"rate":0.072,"upto":24000},{"rate":0.076,"upto":36000},{"rate":0.079,"upto":48000},{"rate":0.0825,"upto":150000},{"rate":0.09,"upto":175000},{"rate":0.1,"upto":200000},{"rate":0.11,"upto":Infinity}]}},"ID":{"name":"Idaho","single":{"brackets":[{"rate":0.058,"upto":Infinity}]}},"IL":{"name":"Illinois","single":{"brackets":[{"rate":0.0495,"upto":Infinity}]}},"IN":{"name":"Indiana","single":{"brackets":[{"rate":0.0315,"upto":Infinity}]}},"IA":{"name":"Iowa","single":{"brackets":[{"rate":0.057,"upto":Infinity}]}},"KS":{"name":"Kansas","single":{"brackets":[{"rate":0.031,"upto":15000},{"rate":0.0525,"upto":30000},{"rate":0.057,"upto":Infinity}]}},"KY":{"name":"Kentucky","single":{"brackets":[{"rate":0.045,"upto":Infinity}]}},"LA":{"name":"Louisiana","single":{"brackets":[{"rate":0.0185,"upto":12500},{"rate":0.037,"upto":50000},{"rate":0.0425,"upto":Infinity}]}},"ME":{"name":"Maine","single":{"brackets":[{"rate":0.058,"upto":24500},{"rate":0.0675,"upto":58050},{"rate":0.0715,"upto":Infinity}]}},"MD":{"name":"Maryland","single":{"brackets":[{"rate":0.02,"upto":1000},{"rate":0.03,"upto":2000},{"rate":0.04,"upto":3000},{"rate":0.0475,"upto":100000},{"rate":0.05,"upto":125000},{"rate":0.0525,"upto":150000},{"rate":0.055,"upto":250000},{"rate":0.0575,"upto":Infinity}]}},"MA":{"name":"Massachusetts","single":{"brackets":[{"rate":0.05,"upto":Infinity}]}},"MI":{"name":"Michigan","single":{"brackets":[{"rate":0.0425,"upto":Infinity}]}},"MN":{"name":"Minnesota","single":{"brackets":[{"rate":0.0535,"upto":30070},{"rate":0.068,"upto":98750},{"rate":0.0785,"upto":183340},{"rate":0.0985,"upto":Infinity}]}},"MS":{"name":"Mississippi","single":{"brackets":[{"rate":0.04,"upto":5000},{"rate":0.05,"upto":Infinity}]}},"MO":{"name":"Missouri","single":{"brackets":[{"rate":0.0495,"upto":Infinity}]}},"MT":{"name":"Montana","single":{"brackets":[{"rate":0.047,"upto":20500},{"rate":0.059,"upto":Infinity}]}},"NE":{"name":"Nebraska","single":{"brackets":[{"rate":0.0246,"upto":3220},{"rate":0.0351,"upto":19340},{"rate":0.0501,"upto":32230},{"rate":0.0664,"upto":Infinity}]}},"NV":{"name":"Nevada","single":{"brackets":[]}},"NH":{"name":"New Hampshire","single":{"brackets":[]}},"NJ":{"name":"New Jersey","single":{"brackets":[{"rate":0.014,"upto":20000},{"rate":0.0175,"upto":35000},{"rate":0.035,"upto":40000},{"rate":0.05525,"upto":75000},{"rate":0.0637,"upto":500000},{"rate":0.0897,"upto":1000000},{"rate":0.1075,"upto":Infinity}]}},"NM":{"name":"New Mexico","single":{"brackets":[{"rate":0.017,"upto":5500},{"rate":0.032,"upto":11000},{"rate":0.049,"upto":16000},{"rate":0.059,"upto":Infinity}]}},"NY":{"name":"New York","single":{"brackets":[{"rate":0.04,"upto":8500},{"rate":0.045,"upto":11700},{"rate":0.0525,"upto":13900},{"rate":0.055,"upto":80650},{"rate":0.06,"upto":215400},{"rate":0.0685,"upto":1077550},{"rate":0.0965,"upto":5000000},{"rate":0.103,"upto":25000000},{"rate":0.109,"upto":Infinity}]}},"NC":{"name":"North Carolina","single":{"brackets":[{"rate":0.0475,"upto":Infinity}]}},"ND":{"name":"North Dakota","single":{"brackets":[{"rate":0.011,"upto":44725},{"rate":0.0204,"upto":90425},{"rate":0.0227,"upto":222525},{"rate":0.0264,"upto":473975},{"rate":0.029,"upto":Infinity}]}},"OH":{"name":"Ohio","single":{"brackets":[{"rate":0.02765,"upto":26050},{"rate":0.03226,"upto":100000},{"rate":0.03688,"upto":Infinity}]}},"OK":{"name":"Oklahoma","single":{"brackets":[{"rate":0.005,"upto":1000},{"rate":0.01,"upto":2500},{"rate":0.02,"upto":3750},{"rate":0.03,"upto":4900},{"rate":0.04,"upto":7200},{"rate":0.0475,"upto":Infinity}]}},"OR":{"name":"Oregon","single":{"brackets":[{"rate":0.0475,"upto":3750},{"rate":0.0675,"upto":9450},{"rate":0.0875,"upto":125000},{"rate":0.099,"upto":Infinity}]}},"PA":{"name":"Pennsylvania","single":{"brackets":[{"rate":0.0307,"upto":Infinity}]}},"RI":{"name":"Rhode Island","single":{"brackets":[{"rate":0.0375,"upto":68250},{"rate":0.0475,"upto":155050},{"rate":0.0599,"upto":Infinity}]}},"SC":{"name":"South Carolina","single":{"brackets":[{"rate":0.03,"upto":3210},{"rate":0.065,"upto":Infinity}]}},"SD":{"name":"South Dakota","single":{"brackets":[]}},"TN":{"name":"Tennessee","single":{"brackets":[]}},"TX":{"name":"Texas","single":{"brackets":[]}},"UT":{"name":"Utah","single":{"brackets":[{"rate":0.0465,"upto":Infinity}]}},"VT":{"name":"Vermont","single":{"brackets":[{"rate":0.0335,"upto":45300},{"rate":0.066,"upto":109800},{"rate":0.076,"upto":229300},{"rate":0.0875,"upto":Infinity}]}},"VA":{"name":"Virginia","single":{"brackets":[{"rate":0.02,"upto":3000},{"rate":0.03,"upto":5000},{"rate":0.05,"upto":17000},{"rate":0.0575,"upto":Infinity}]}},"WA":{"name":"Washington","single":{"brackets":[]}},"WV":{"name":"West Virginia","single":{"brackets":[{"rate":0.0236,"upto":10000},{"rate":0.0315,"upto":25000},{"rate":0.0354,"upto":40000},{"rate":0.0472,"upto":60000},{"rate":0.0512,"upto":Infinity}]}},"WI":{"name":"Wisconsin","single":{"brackets":[{"rate":0.0354,"upto":13600},{"rate":0.0465,"upto":27210},{"rate":0.053,"upto":300090},{"rate":0.0765,"upto":Infinity}]}},"WY":{"name":"Wyoming","single":{"brackets":[]}}}
             }
-          },
-          "2025": {
-            "federal": {
-              "single": { "brackets": [{ "rate": 0.10, "upto": 12000 }, { "rate": 0.12, "upto": 48500 }, { "rate": 0.22, "upto": 103500 }, { "rate": 0.24, "upto": 197500 }, { "rate": 0.32, "upto": 250000 }, { "rate": 0.35, "upto": 625000 }, { "rate": 0.37, "upto": Infinity }], "deduction": 15000 },
-              "married": { "brackets": [{ "rate": 0.10, "upto": 24000 }, { "rate": 0.12, "upto": 97000 }, { "rate": 0.22, "upto": 207000 }, { "rate": 0.24, "upto": 395000 }, { "rate": 0.32, "upto": 500000 }, { "rate": 0.35, "upto": 750000 }, { "rate": 0.37, "upto": Infinity }], "deduction": 30000 },
-              "hoh": { "brackets": [{ "rate": 0.10, "upto": 17000 }, { "rate": 0.12, "upto": 65000 }, { "rate": 0.22, "upto": 103500 }, { "rate": 0.24, "upto": 197500 }, { "rate": 0.32, "upto": 250000 }, { "rate": 0.35, "upto": 625000 }, { "rate": 0.37, "upto": Infinity }], "deduction": 22500 }
-            },
-            "fica": { "social_security_rate": 0.062, "social_security_limit": 175000, "medicare_rate": 0.0145 },
-            "states": { /* Assuming 2025 state data is same as 2024 for this example */
-                 "AL": {"name": "Alabama","single": {"brackets": [{"rate": 0.02,"upto": 500},{"rate": 0.04,"upto": 3000},{"rate": 0.05,"upto": Infinity}]}},
-                "AK": {"name": "Alaska","single": {"brackets": []}},
-                "AZ": {"name": "Arizona","single": {"brackets": [{"rate": 0.025,"upto": Infinity}]}},
-                "AR": {"name": "Arkansas","single": {"brackets": [{"rate": 0.02,"upto": 24299},{"rate": 0.04,"upto": 87000},{"rate": 0.049,"upto": Infinity}]}},
-                "CA": {"name": "California","single": {"brackets": [{"rate": 0.01,"upto": 10412},{"rate": 0.02,"upto": 24684},{"rate": 0.04,"upto": 38959},{"rate": 0.06,"upto": 54081},{"rate": 0.08,"upto": 68350},{"rate": 0.093,"upto": 349137},{"rate": 0.103,"upto": 418961},{"rate": 0.113,"upto": 698271},{"rate": 0.123,"upto": Infinity}]}},
-                "CO": {"name": "Colorado","single": {"brackets": [{"rate": 0.044,"upto": Infinity}]}},
-                "CT": {"name": "Connecticut","single": {"brackets": [{"rate": 0.03,"upto": 10000},{"rate": 0.05,"upto": 50000},{"rate": 0.055,"upto": 100000},{"rate": 0.06,"upto": 200000},{"rate": 0.065,"upto": 250000},{"rate": 0.069,"upto": 500000},{"rate": 0.0699,"upto": Infinity}]}},
-                "DE": {"name": "Delaware","single": {"brackets": [{"rate": 0.022,"upto": 5000},{"rate": 0.039,"upto": 10000},{"rate": 0.048,"upto": 20000},{"rate": 0.052,"upto": 25000},{"rate": 0.0555,"upto": 60000},{"rate": 0.066,"upto": Infinity}]}},
-                "FL": {"name": "Florida","single": {"brackets": []}},
-                "GA": {"name": "Georgia","single": {"brackets": [{"rate": 0.0549,"upto": Infinity}]}},
-                "HI": {"name": "Hawaii","single": {"brackets": [{"rate": 0.014,"upto": 2400},{"rate": 0.032,"upto": 4800},{"rate": 0.055,"upto": 9600},{"rate": 0.064,"upto": 14400},{"rate": 0.068,"upto": 19200},{"rate": 0.072,"upto": 24000},{"rate": 0.076,"upto": 36000},{"rate": 0.079,"upto": 48000},{"rate": 0.0825,"upto": 150000},{"rate": 0.09,"upto": 175000},{"rate": 0.1,"upto": 200000},{"rate": 0.11,"upto": Infinity}]}},
-                "ID": {"name": "Idaho","single": {"brackets": [{"rate": 0.058,"upto": Infinity}]}},
-                "IL": {"name": "Illinois","single": {"brackets": [{"rate": 0.0495,"upto": Infinity}]}},
-                "IN": {"name": "Indiana","single": {"brackets": [{"rate": 0.0315,"upto": Infinity}]}},
-                "IA": {"name": "Iowa","single": {"brackets": [{"rate": 0.057,"upto": Infinity}]}},
-                "KS": {"name": "Kansas","single": {"brackets": [{"rate": 0.031,"upto": 15000},{"rate": 0.0525,"upto": 30000},{"rate": 0.057,"upto": Infinity}]}},
-                "KY": {"name": "Kentucky","single": {"brackets": [{"rate": 0.045,"upto": Infinity}]}},
-                "LA": {"name": "Louisiana","single": {"brackets": [{"rate": 0.0185,"upto": 12500},{"rate": 0.037,"upto": 50000},{"rate": 0.0425,"upto": Infinity}]}},
-                "ME": {"name": "Maine","single": {"brackets": [{"rate": 0.058,"upto": 24500},{"rate": 0.0675,"upto": 58050},{"rate": 0.0715,"upto": Infinity}]}},
-                "MD": {"name": "Maryland","single": {"brackets": [{"rate": 0.02,"upto": 1000},{"rate": 0.03,"upto": 2000},{"rate": 0.04,"upto": 3000},{"rate": 0.0475,"upto": 100000},{"rate": 0.05,"upto": 125000},{"rate": 0.0525,"upto": 150000},{"rate": 0.055,"upto": 250000},{"rate": 0.0575,"upto": Infinity}]}},
-                "MA": {"name": "Massachusetts","single": {"brackets": [{"rate": 0.05,"upto": Infinity}]}},
-                "MI": {"name": "Michigan","single": {"brackets": [{"rate": 0.0425,"upto": Infinity}]}},
-                "MN": {"name": "Minnesota","single": {"brackets": [{"rate": 0.0535,"upto": 30070},{"rate": 0.068,"upto": 98750},{"rate": 0.0785,"upto": 183340},{"rate": 0.0985,"upto": Infinity}]}},
-                "MS": {"name": "Mississippi","single": {"brackets": [{"rate": 0.04,"upto": 5000},{"rate": 0.05,"upto": Infinity}]}},
-                "MO": {"name": "Missouri","single": {"brackets": [{"rate": 0.0495,"upto": Infinity}]}},
-                "MT": {"name": "Montana","single": {"brackets": [{"rate": 0.047,"upto": 20500},{"rate": 0.059,"upto": Infinity}]}},
-                "NE": {"name": "Nebraska","single": {"brackets": [{"rate": 0.0246,"upto": 3220},{"rate": 0.0351,"upto": 19340},{"rate": 0.0501,"upto": 32230},{"rate": 0.0664,"upto": Infinity}]}},
-                "NV": {"name": "Nevada","single": {"brackets": []}},
-                "NH": {"name": "New Hampshire","single": {"brackets": []}},
-                "NJ": {"name": "New Jersey","single": {"brackets": [{"rate": 0.014,"upto": 20000},{"rate": 0.0175,"upto": 35000},{"rate": 0.035,"upto": 40000},{"rate": 0.05525,"upto": 75000},{"rate": 0.0637,"upto": 500000},{"rate": 0.0897,"upto": 1000000},{"rate": 0.1075,"upto": Infinity}]}},
-                "NM": {"name": "New Mexico","single": {"brackets": [{"rate": 0.017,"upto": 5500},{"rate": 0.032,"upto": 11000},{"rate": 0.049,"upto": 16000},{"rate": 0.059,"upto": Infinity}]}},
-                "NY": {"name": "New York","single": {"brackets": [{"rate": 0.04,"upto": 8500},{"rate": 0.045,"upto": 11700},{"rate": 0.0525,"upto": 13900},{"rate": 0.055,"upto": 80650},{"rate": 0.06,"upto": 215400},{"rate": 0.0685,"upto": 1077550},{"rate": 0.0965,"upto": 5000000},{"rate": 0.103,"upto": 25000000},{"rate": 0.109,"upto": Infinity}]}},
-                "NC": {"name": "North Carolina","single": {"brackets": [{"rate": 0.0475,"upto": Infinity}]}},
-                "ND": {"name": "North Dakota","single": {"brackets": [{"rate": 0.011,"upto": 44725},{"rate": 0.0204,"upto": 90425},{"rate": 0.0227,"upto": 222525},{"rate": 0.0264,"upto": 473975},{"rate": 0.029,"upto": Infinity}]}},
-                "OH": {"name": "Ohio","single": {"brackets": [{"rate": 0.02765,"upto": 26050},{"rate": 0.03226,"upto": 100000},{"rate": 0.03688,"upto": Infinity}]}},
-                "OK": {"name": "Oklahoma","single": {"brackets": [{"rate": 0.005,"upto": 1000},{"rate": 0.01,"upto": 2500},{"rate": 0.02,"upto": 3750},{"rate": 0.03,"upto": 4900},{"rate": 0.04,"upto": 7200},{"rate": 0.0475,"upto": Infinity}]}},
-                "OR": {"name": "Oregon","single": {"brackets": [{"rate": 0.0475,"upto": 3750},{"rate": 0.0675,"upto": 9450},{"rate": 0.0875,"upto": 125000},{"rate": 0.099,"upto": Infinity}]}},
-                "PA": {"name": "Pennsylvania","single": {"brackets": [{"rate": 0.0307,"upto": Infinity}]}},
-                "RI": {"name": "Rhode Island","single": {"brackets": [{"rate": 0.0375,"upto": 68250},{"rate": 0.0475,"upto": 155050},{"rate": 0.0599,"upto": Infinity}]}},
-                "SC": {"name": "South Carolina","single": {"brackets": [{"rate": 0.03,"upto": 3210},{"rate": 0.065,"upto": Infinity}]}},
-                "SD": {"name": "South Dakota","single": {"brackets": []}},
-                "TN": {"name": "Tennessee","single": {"brackets": []}},
-                "TX": {"name": "Texas","single": {"brackets": []}},
-                "UT": {"name": "Utah","single": {"brackets": [{"rate": 0.0465,"upto": Infinity}]}},
-                "VT": {"name": "Vermont","single": {"brackets": [{"rate": 0.0335,"upto": 45300},{"rate": 0.066,"upto": 109800},{"rate": 0.076,"upto": 229300},{"rate": 0.0875,"upto": Infinity}]}},
-                "VA": {"name": "Virginia","single": {"brackets": [{"rate": 0.02,"upto": 3000},{"rate": 0.03,"upto": 5000},{"rate": 0.05,"upto": 17000},{"rate": 0.0575,"upto": Infinity}]}},
-                "WA": {"name": "Washington","single": {"brackets": []}},
-                "WV": {"name": "West Virginia","single": {"brackets": [{"rate": 0.0236,"upto": 10000},{"rate": 0.0315,"upto": 25000},{"rate": 0.0354,"upto": 40000},{"rate": 0.0472,"upto": 60000},{"rate": 0.0512,"upto": Infinity}]}},
-                "WI": {"name": "Wisconsin","single": {"brackets": [{"rate": 0.0354,"upto": 13600},{"rate": 0.0465,"upto": 27210},{"rate": 0.053,"upto": 300090},{"rate": 0.0765,"upto": Infinity}]}},
-                "WY": {"name": "Wyoming","single": {"brackets": []}}
-            }
-          }
         };
 
         // 3. Precision Math Helper
@@ -709,11 +741,9 @@
             getTaxTables(year) {
                 return Promise.resolve(taxTablesData[year] || null);
             }
-             getAllStateNames() {
-                const yearData = taxTablesData['2024']; // Use a representative year
-                if (!yearData || !yearData.states) {
-                    return {};
-                }
+            getAllStateNames() {
+                const yearData = taxTablesData['2024']; // Use a representative year for state list
+                if (!yearData || !yearData.states) return {};
                 const states = {};
                 for (const abbr in yearData.states) {
                     states[abbr] = yearData.states[abbr].name;
@@ -791,16 +821,15 @@
 
             getStateTax(annualGross, stateAbbr, filingStatus, stateTables, numPayPeriods) {
                 const stateInfo = stateTables[stateAbbr];
-                if (!stateInfo || !stateInfo.single || stateInfo.single.brackets.length === 0) return 0; // Assuming 'single' table for all for now
-                
-                // Note: Using 'single' for all filing statuses as an example. A real-world app would need tables for each status.
+                // Simplified: uses 'single' for all statuses. A full implementation would need more complex state tables.
+                if (!stateInfo || !stateInfo.single || stateInfo.single.brackets.length === 0) return 0;
                 const table = stateInfo['single'];
                 const annualTax = this.calculateBracketTax(annualGross, table);
                 return BuellDocsApp.pMath.round(BuellDocsApp.pMath.divide(annualTax, numPayPeriods));
             }
 
             getSocialSecurityTax(grossPay, ficaTable) {
-                // Note: This doesn't account for hitting the annual limit mid-year.
+                // Simplified: doesn't account for hitting annual limit mid-year perfectly.
                 const potentialPay = Math.min(grossPay, ficaTable.social_security_limit);
                 return BuellDocsApp.pMath.round(BuellDocsApp.pMath.multiply(potentialPay, ficaTable.social_security_rate));
             }
@@ -828,12 +857,10 @@
                 const periodRange = `${this.formatDate(formData.payPeriodStart)} - ${this.formatDate(formData.payPeriodEnd)}`;
                 this.updateTextContent('preview-payPeriodRange', periodRange);
 
-                // Update tables
                 this.updateTable('preview-earnings-table', formData.earnings);
                 this.updateTable('preview-deductions-table', formData.deductions);
                 this.updateTable('preview-taxes-table', calculationResults.taxes, true);
 
-                // Update summary
                 this.updateTextContent('preview-grossPay', this.formatCurrency(calculationResults.grossPay));
                 this.updateTextContent('preview-totalTaxes', this.formatCurrency(calculationResults.totalTaxes));
                 this.updateTextContent('preview-totalDeductions', this.formatCurrency(calculationResults.totalDeductions));
@@ -845,13 +872,13 @@
                 if (el) el.textContent = value || '';
             }
             
-             formatCurrency(amount) {
+            formatCurrency(amount) {
                 return `$${(amount || 0).toFixed(2)}`;
             }
 
             formatDate(dateString) {
                 if (!dateString) return '';
-                const date = new Date(dateString + 'T00:00:00'); // Treat as local time
+                const date = new Date(dateString + 'T00:00:00'); // Treat as local time to avoid timezone shifts
                 return date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
             }
 
@@ -861,7 +888,7 @@
                 let total = 0;
 
                 if (!items || items.length === 0) {
-                    tableBody.innerHTML = `<tr><td colspan="3">None</td></tr>`;
+                    tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color: #888;">None</td></tr>`;
                     return;
                 }
                 
@@ -879,8 +906,8 @@
                     tableBody.insertAdjacentHTML('beforeend', row);
                 });
 
-                 const totalRow = `
-                    <tr style="font-weight: bold;">
+                const totalRow = `
+                    <tr style="font-weight: bold; background-color: #f8f9fa;">
                         <td>Total</td>
                         <td class="text-right">${this.formatCurrency(total)}</td>
                         <td class="text-right">${this.formatCurrency(total)}</td> <!-- YTD Placeholder -->
@@ -894,7 +921,7 @@
 
         // 7. Form Manager
         class FormManager {
-             constructor(updateCallback) {
+            constructor(updateCallback) {
                 this.form = document.getElementById('paystub-form');
                 this.updateCallback = updateCallback;
                 this.dataService = new BuellDocsApp.DataService();
@@ -949,11 +976,12 @@
                 payDateElem.value = today.toISOString().split('T')[0];
                 
                 const payPeriodEnd = new Date(today);
-                payPeriodEnd.setDate(payPeriodEnd.getDate() - 1); // e.g., period ends day before pay day
+                // Set end date to last Friday for a typical pay cycle
+                payPeriodEnd.setDate(payPeriodEnd.getDate() - ((today.getDay() + 2) % 7)); 
                 payPeriodEndElem.value = payPeriodEnd.toISOString().split('T')[0];
 
                 const payPeriodStart = new Date(payPeriodEnd);
-                 payPeriodStart.setDate(payPeriodStart.getDate() - 13); // for bi-weekly
+                payPeriodStart.setDate(payPeriodStart.getDate() - 13); // for bi-weekly
                 payPeriodStartElem.value = payPeriodStart.toISOString().split('T')[0];
             }
             
@@ -965,6 +993,7 @@
                     stateSelect.add(option);
                 }
                 stateSelect.value = 'NJ'; // Default to New Jersey
+                this.updateCallback(); // Trigger update after setting default state
             }
             
             setupDynamicFields() {
@@ -983,14 +1012,14 @@
                 newField.innerHTML = `
                     <input type="text" name="${name1}" placeholder="Description">
                     <input type="number" name="${name2}" placeholder="Amount" step="0.01">
-                    <button type="button" class="btn-remove" style="background:none; border:none; color:red; cursor:pointer;">X</button>
+                    <button type="button" class="btn-remove" title="Remove field">&times;</button>
                 `;
                 container.appendChild(newField);
                 newField.querySelector('.btn-remove').addEventListener('click', (e) => {
                     e.target.parentElement.remove();
                     this.updateCallback();
                 });
-                 newField.querySelectorAll('input').forEach(input => {
+                newField.querySelectorAll('input').forEach(input => {
                     input.addEventListener('input', () => this.updateCallback());
                 });
             }
@@ -1001,9 +1030,17 @@
         // 8. UI Controller (The main orchestrator)
         class UIController {
             constructor() {
+                // Page Navigation
+                this.generatorPage = document.getElementById('generator-page');
+                this.contactPage = document.getElementById('contact-page');
+                this.navGenerator = document.getElementById('nav-generator');
+                this.navContact = document.getElementById('nav-contact');
+
+                // App Logic
                 this.formManager = new BuellDocsApp.FormManager(() => this.processUpdate());
                 this.calculator = new BuellDocsApp.PaystubCalculator();
                 this.previewUpdater = new BuellDocsApp.PreviewUpdater();
+                
                 this.setupEventListeners();
                 this.processUpdate(); // Initial calculation
             }
@@ -1015,18 +1052,39 @@
                     this.previewUpdater.update(formData, calculationResults);
                 } catch (error) {
                     console.error("Calculation Error:", error);
-                    // Optionally display an error message to the user in the UI
+                    // UI error message can be displayed here
+                }
+            }
+            
+            switchPage(page) {
+                if (page === 'generator') {
+                    this.generatorPage.classList.remove('hidden');
+                    this.contactPage.classList.add('hidden');
+                    this.navGenerator.classList.add('active');
+                    this.navContact.classList.remove('active');
+                } else if (page === 'contact') {
+                    this.generatorPage.classList.add('hidden');
+                    this.contactPage.classList.remove('hidden');
+                    this.navGenerator.classList.remove('active');
+                    this.navContact.classList.add('active');
                 }
             }
 
             setupEventListeners() {
+                // Navigation
+                this.navGenerator.addEventListener('click', () => this.switchPage('generator'));
+                this.navContact.addEventListener('click', () => this.switchPage('contact'));
+
+                // PDF Download
                 document.getElementById('download-pdf').addEventListener('click', () => {
+                    const formData = this.formManager.getFormData();
+                    const filename = `Paystub_${formData.employeeName.replace(' ','_')}_${formData.payDate}.pdf`;
                     const element = document.getElementById('paystub-preview');
                     const opt = {
                       margin:       0.5,
-                      filename:     'paystub.pdf',
+                      filename:     filename,
                       image:        { type: 'jpeg', quality: 0.98 },
-                      html2canvas:  { scale: 2 },
+                      html2canvas:  { scale: 2, useCORS: true },
                       jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
                     };
                     html2pdf().set(opt).from(element).save();
@@ -1037,7 +1095,6 @@
 
 
         // 9. Main App Initialization
-        // This is the entry point, equivalent to the original main.js
         document.addEventListener('DOMContentLoaded', () => {
             new BuellDocsApp.UIController();
         });
@@ -1045,5 +1102,4 @@
     })();
     </script>
 </body>
-
 </html>
