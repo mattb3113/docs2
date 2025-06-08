@@ -2,9 +2,12 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="/_next/static/css/008edca24b12790c.css">
+    <link rel="stylesheet" href="/_next/static/css/727973242bb33abd.css">
+    <link rel="stylesheet" href="buelldocs-theme.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paystub Generator Pro - Buell Docs</title>
+    <title>BuellDocs Paystub Generator Pro </title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
