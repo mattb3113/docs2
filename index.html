@@ -630,13 +630,13 @@
             </div>
         </div>
 
-        <!-- REVISED: Paystub Summary Bar Structure -->
+        <!-- REVISED: Paystub Summary Bar Structure with unique data-ids -->
         <div class="paystub-summary">
             <div class="summary-grid">
-                 <div class="summary-item"><strong>GROSS PAY</strong><br>$<span data-id="grossPay"></span></div>
-                 <div class="summary-item"><strong>TOTAL DEDUCTIONS</strong><br>$<span data-id="totalDeductions"></span></div>
-                 <div class="summary-item"><strong>TOTAL TAXES</strong><br>$<span data-id="totalTaxes"></span></div>
-                 <div class="summary-item"><strong>NET PAY</strong><br>$<span data-id="netPay" id="net-pay-display"></span></div>
+                 <div class="summary-item"><strong>GROSS PAY</strong><br>$<span data-id="summaryGrossPay"></span></div>
+                 <div class="summary-item"><strong>TOTAL DEDUCTIONS</strong><br>$<span data-id="summaryTotalDeductions"></span></div>
+                 <div class="summary-item"><strong>TOTAL TAXES</strong><br>$<span data-id="summaryTotalTaxes"></span></div>
+                 <div class="summary-item"><strong>NET PAY</strong><br>$<span data-id="summaryNetPay" id="net-pay-display"></span></div>
             </div>
         </div>
     </div>
@@ -943,26 +943,13 @@
                 const stateInfo = stateTables[stateAbbr];
                 if (!stateInfo) return 0;
 
-                // For NJ, use njFilingStatus, otherwise fallback to federal filingStatus for other states
-                // Note: formData.njFilingStatus is not directly accessible here, it needs to be passed in,
-                // or we use the passed filingStatus. Assuming filingStatus is the relevant one for state tax.
-                let actualFilingStatus = filingStatus;
-                // The original code here referenced `formData.njFilingStatus` directly, which isn't in scope.
-                // Assuming the `filingStatus` passed to this function is the one to use,
-                // or that `njFilingStatus` will be explicitly added to `formData` and passed down.
-                // For simplicity and correctness based on the existing structure, we'll use `filingStatus`
-                // and if the state is NJ, prioritize its specific filing status.
-                
-                // Correction based on form data structure: `formData.njFilingStatus` will be available in the formData object.
-                // The `formData` object containing `njFilingStatus` needs to be passed to `calculateTaxes`, then here.
-                // Re-aligning with how formData is structured and passed.
                 const relevantFilingStatus = stateAbbr === 'NJ' ? formData.njFilingStatus : filingStatus;
 
                 const table = stateInfo[relevantFilingStatus] || stateInfo.single; // Fallback to single if specific status not found
                 
                 if (!table || !table.brackets || table.brackets.length === 0) return 0; 
                 
-                const annualTax = this.calculateBracketTax(annualIncome, table);
+                const annualTax = this.calculateBracketTax(annualGross, table);
                 return pMath.round(pMath.divide(annualTax, numPayPeriods));
             }
 
@@ -995,8 +982,6 @@
                 if (amountOverThresholdThisPeriod > 0) {
                     tax = pMath.multiply(amountOverThresholdThisPeriod, 0.009);
                 }
-                // Ensure total additional medicare tax doesn't exceed annual maximum (if applicable, though not common for AMT)
-                // For now, no cap on AMT beyond the gross itself, just based on exceeding threshold.
                 return pMath.round(tax);
             }
 
@@ -1101,25 +1086,16 @@
                 this.updateGenericTable(find('taxes-table'), data.taxes);
                 
                 // Update gross, deductions, taxes in the tables' footers
-                find('grossPay').textContent = formatCurrency(data.grossPay);
-                find('totalDeductions').textContent = formatCurrency(data.totalDeductions);
-                find('totalTaxes').textContent = formatCurrency(data.totalTaxes);
+                // These data-ids refer to elements within the tables themselves
+                stubElement.querySelector('table[data-id="earnings-table"] tfoot [data-id="grossPay"]').textContent = formatCurrency(data.grossPay);
+                stubElement.querySelector('table[data-id="deductions-table"] tfoot [data-id="totalDeductions"]').textContent = formatCurrency(data.totalDeductions);
+                stubElement.querySelector('table[data-id="taxes-table"] tfoot [data-id="totalTaxes"]').textContent = formatCurrency(data.totalTaxes);
 
-                // Update summary bar values
-                // Use the data-id from the plan: grossPay, totalDeductions, totalTaxes, netPay
-                find('grossPay').textContent = formatCurrency(data.grossPay);
-                find('totalDeductions').textContent = formatCurrency(data.totalDeductions);
-                find('totalTaxes').textContent = formatCurrency(data.totalTaxes);
-                find('netPay').textContent = formatCurrency(data.netPay); // This also has the #net-pay-display ID
-
-                // Update YTD Gross display in summary
-                // The plan asks for summary-grossPay, but the structure already has data-id="grossPay" for total
-                // I will use data-id="grossPay" as the span for both table footer and summary display for consistency.
-                // If a separate YTD Gross Summary item is needed, it would require adding HTML to the template.
-                // For now, the existing `data-id="grossPay"` in the summary div will show current gross.
-                // If the intention was to show `ytdGross` in the summary, then the template needs a specific span for it.
-                // Given the plan only lists "GROSS PAY", "TOTAL DEDUCTIONS", "TOTAL TAXES", "NET PAY" for summary bar,
-                // I will use `data-id="grossPay"` for the summary gross pay.
+                // Update summary bar values - FIXED: Using unique data-ids for summary
+                find('summaryGrossPay').textContent = formatCurrency(data.grossPay);
+                find('summaryTotalDeductions').textContent = formatCurrency(data.totalDeductions);
+                find('summaryTotalTaxes').textContent = formatCurrency(data.totalTaxes);
+                find('summaryNetPay').textContent = formatCurrency(data.netPay);
             }
 
             updateEarningsTable(table, items) {
@@ -1185,7 +1161,6 @@
                     stubToShow.classList.add('active');
                     stubToShow.style.display = 'block';
                     
-                    // Force reflow to ensure display is updated
                     void stubToShow.offsetWidth;
                 }
                 
@@ -1201,68 +1176,54 @@
             getCurrentStubElementForPDF() {
                 const activeStub = this.container.querySelector('.paystub-wrapper.active');
                 if (!activeStub) return null;
-
-                // Clone the active stub
+                
                 const pdfElement = activeStub.cloneNode(true);
                 pdfElement.style.display = 'block';
                 pdfElement.style.width = '100%';
-                pdfElement.style.maxWidth = '750px';
-                pdfElement.style.margin = '0 auto';
-                pdfElement.style.padding = '20px';
-                pdfElement.style.boxSizing = 'border-box';
-
-                // Remove the ID to avoid duplicates
-                pdfElement.removeAttribute('id');
-
-                // Apply print-style CSS directly
+                
                 const style = document.createElement('style');
+                // These styles are critical for PDF generation and should match print media queries
                 style.textContent = `
-                    body, html { width: 100% !important; margin: 0; padding: 0; }
                     * { font-family: 'Inter', sans-serif !important; }
-                    .paystub-wrapper {
-                        width: 100% !important;
-                        max-width: 750px !important;
-                        margin: 0 auto !important;
-                        padding: 20px !important;
+                    .paystub-wrapper { 
+                        width: 100% !important; 
+                        max-width: 750px !important; /* Constrain width for PDF */
                         box-sizing: border-box !important;
-                        background: white !important;
-                        box-shadow: none !important;
+                        padding: 20px !important; /* Match @media print padding */
                     }
                     #paystub-template {
-                        display: block !important;
-                        padding: 20px !important;
+                        padding: 20px !important; /* Match @media print padding */
                         font-size: 14px !important;
                         border: 1px solid #e0e0e0 !important;
                         border-radius: 8px !important;
                         background-color: #ffffff !important;
                         color: #333 !important;
-                        box-shadow: none !important;
                     }
-                    .paystub-table {
-                        width: 100% !important;
-                        border-collapse: collapse !important;
-                        margin: 15px 0 !important;
-                        font-size: 12px !important;
+                    .paystub-table { 
+                        width: 100% !important; 
+                        border-collapse: collapse !important; 
+                        margin-top: 10px !important; 
+                        font-size: 12px !important; /* Smaller text for compactness */
                     }
-                    .paystub-table th, .paystub-table td {
-                        padding: 8px 10px !important;
-                        text-align: left !important;
-                        border-bottom: 1px dashed #e9e9e9 !important;
+                    .paystub-table th, .paystub-table td { 
+                        padding: 8px 10px !important; /* Reduced padding */
+                        text-align: left !important; 
+                        border-bottom: 1px dashed #e9e9e9 !important; 
                     }
-                    .paystub-table thead th {
-                        background-color: #f5f7f9 !important;
-                        font-weight: 700 !important;
+                    .paystub-table thead th { 
+                        background-color: #f5f7f9 !important; 
+                        font-weight: 700 !important; 
                     }
                     .summary-grid {
                         display: grid !important;
                         grid-template-columns: repeat(4, 1fr) !important;
-                        gap: 10px !important;
+                        gap: 10px !important; /* Reduced spacing */
                     }
                     .summary-item strong { font-size: 12px !important; }
                     .summary-item span { font-size: 16px !important; }
                 `;
                 pdfElement.appendChild(style);
-
+                
                 return pdfElement;
             }
         }
@@ -1671,17 +1632,17 @@
                 document.getElementById('download-pdf').addEventListener('click', () => {
                     const currentStubElement = this.previewUpdater.getCurrentStubElementForPDF();
                     if (!currentStubElement) {
-                        alert("No paystub is available to download."); // Changed to alert as per instructions
+                        console.warn("No paystub preview to download.");
                         return;
                     }
 
                     // REVISED html2pdf options for single-page output and quality
                     const opt = {
                         margin: 0.25, // Reduced margin
-                        filename: `paystub_${Date.now()}.pdf`, // Dynamic filename
+                        filename: 'paystub.pdf',
                         image: { type: 'jpeg', quality: 0.98 },
                         html2canvas: { 
-                            scale: 2, // Increased scale for higher resolution as per suggestion
+                            scale: 2, // Retained scale 2 for better quality
                             useCORS: true, 
                             logging: false, 
                             letterRendering: true 
@@ -1693,14 +1654,7 @@
                         }
                     };
                     
-                    html2pdf()
-                        .from(currentStubElement)
-                        .set(opt)
-                        .save()
-                        .catch(err => {
-                            console.error("PDF generation failed:", err);
-                            alert("Failed to generate PDF. Check console for details."); // Added error handling
-                        });
+                    html2pdf().from(currentStubElement).set(opt).save();
                 });
 
                 document.getElementById('next-stub').addEventListener('click', () => this.previewUpdater.next());
