@@ -302,8 +302,8 @@
                     <section>
                          <h3>Batch Generation</h3>
                          <div class="form-group">
-                             <label for="numPaystubs">Number of Paystubs to Generate (1-5)</label>
-                             <input type="number" id="numPaystubs" name="numPaystubs" min="1" max="5" value="1">
+                             <label for="numPaystubs">Number of Paystubs to Generate (1-8)</label>
+                             <input type="number" id="numPaystubs" name="numPaystubs" min="1" max="8" value="1">
                          </div>
                          <div id="paystub-dates-container">
                              <!-- Paystub date inputs will be generated here by JS -->
@@ -352,8 +352,8 @@
                         <div class="dynamic-field-group" id="earnings-container">
                              <div class="form-group dynamic-field-grid">
                                 <label style="margin-bottom: 0;">Description</label>
-                                <label style="margin-bottom: 0;">Current</label>
-                                <label style="margin-bottom: 0;">YTD</label>
+                                <label style="margin-bottom: 0;">Rate</label>
+                                <label style="margin-bottom: 0;">Hours</label>
                                 <span></span>
                             </div>
                         </div>
@@ -570,6 +570,7 @@
                 const payPeriodsPerYear = { weekly: 52, 'bi-weekly': 26, 'semi-monthly': 24, monthly: 12 };
                 const numPayPeriods = payPeriodsPerYear[formData.payPeriod] || 26;
                 
+                // Calculate current gross pay based on earnings input
                 const currentGrossPay = formData.earnings.reduce((total, item) => pMath.add(total, item.current), 0);
                 const annualGross = pMath.multiply(currentGrossPay, numPayPeriods);
 
@@ -585,6 +586,7 @@
                     netPay,
                     totalDeductions: currentTotalDeductions,
                     totalTaxes: currentTotalTaxes,
+                    // Map earnings, deductions, and taxes to include updated YTD values
                     earnings: formData.earnings.map(e => ({...e, ytd: pMath.add(ytdEarnings[e.description] || 0, e.current)})),
                     deductions: formData.deductions.map(d => ({...d, ytd: pMath.add(ytdDeductions[d.description] || 0, d.current)})),
                     taxes: [
@@ -592,11 +594,12 @@
                         { name: 'Social Security', current: calculatedTaxes.socialSecurity, ytd: pMath.add(ytdTaxes['Social Security'] || 0, calculatedTaxes.socialSecurity) },
                         { name: 'Medicare', current: calculatedTaxes.medicare, ytd: pMath.add(ytdTaxes['Medicare'] || 0, calculatedTaxes.medicare) },
                         { name: 'State Income Tax', current: calculatedTaxes.state, ytd: pMath.add(ytdTaxes['State Income Tax'] || 0, calculatedTaxes.state) },
-                    ].filter(t => t.current > 0 || t.ytd > 0),
+                    ].filter(t => t.current > 0 || t.ytd > 0), // Only show taxes if they have a value
                 };
             }
             
             calculateTaxes(currentGross, annualGross, formData, taxTables, numPayPeriods, ytdEarnings) {
+                // Sum all YTD earnings to get total YTD gross for FICA limit checking
                 const totalYtdGross = Object.values(ytdEarnings).reduce((sum, val) => sum + val, 0);
                 const federal = this.getFederalTax(annualGross, formData.filingStatus, taxTables.federal, numPayPeriods);
                 const socialSecurity = this.getSocialSecurityTax(currentGross, totalYtdGross, taxTables.fica);
@@ -605,6 +608,7 @@
                 return { federal, socialSecurity, medicare, state };
             }
 
+            // Generic function to calculate tax based on progressive brackets
             calculateBracketTax(annualIncome, taxInfo) {
                 let tax = 0;
                 let lastUpto = 0;
@@ -618,31 +622,38 @@
                 return tax;
             }
 
+            // Calculates Federal Income Tax
             getFederalTax(annualGross, filingStatus, federalTables, numPayPeriods) {
                 const table = federalTables[filingStatus];
                 if (!table) return 0;
-                const taxableIncome = Math.max(0, pMath.subtract(annualGross, table.deduction));
+                const taxableIncome = Math.max(0, pMath.subtract(annualGross, table.deduction)); // Deduct standard deduction
                 const annualTax = this.calculateBracketTax(taxableIncome, table);
                 return pMath.round(pMath.divide(annualTax, numPayPeriods));
             }
 
+            // Calculates State Income Tax (simplified to bracket-based)
             getStateTax(annualGross, stateAbbr, filingStatus, stateTables, numPayPeriods) {
                 const stateInfo = stateTables[stateAbbr];
-                // Using 'single' as a fallback if other statuses aren't defined.
+                // Try to find filing status specific table, fallback to single if not found or empty
                 const table = (stateInfo && stateInfo[filingStatus]) || (stateInfo && stateInfo.single);
                 if (!table || table.brackets.length === 0) return 0; 
                 const annualTax = this.calculateBracketTax(annualGross, table);
                 return pMath.round(pMath.divide(annualTax, numPayPeriods));
             }
 
+            // Calculates Social Security Tax, respecting annual limit
             getSocialSecurityTax(currentGross, ytdGross, ficaTable) {
                 const limit = ficaTable.social_security_limit;
+                // If YTD gross already exceeds limit, no more SS tax
                 if (ytdGross >= limit) return 0;
+                // Calculate remaining taxable income up to the limit
                 const remainingTaxable = pMath.subtract(limit, ytdGross);
+                // Taxable amount for this period is lesser of current gross or remaining taxable
                 const taxableThisPeriod = Math.min(currentGross, remainingTaxable);
                 return pMath.round(pMath.multiply(taxableThisPeriod, ficaTable.social_security_rate));
             }
 
+            // Calculates Medicare Tax (no income limit)
             getMedicareTax(currentGross, ficaTable) {
                 return pMath.round(pMath.multiply(currentGross, ficaTable.medicare_rate));
             }
@@ -658,25 +669,28 @@
                 this.totalStubs = 0;
             }
 
+            // Updates all paystub previews based on calculation results
             updateAll(results) {
-                this.container.innerHTML = '';
+                this.container.innerHTML = ''; // Clear previous previews
                 this.totalStubs = results.length;
-                this.currentIndex = 0;
+                this.currentIndex = 0; // Reset to the first stub
 
                 results.forEach((data, index) => {
                     const newStub = this.template.cloneNode(true);
                     newStub.id = `paystub-preview-${index}`;
                     newStub.classList.add('paystub-wrapper');
-                    if (index === 0) newStub.classList.add('active');
+                    if (index === 0) newStub.classList.add('active'); // Activate the first stub by default
                     this.container.appendChild(newStub);
                     this.populateStub(newStub, data);
                 });
-                this.updateNav();
+                this.updateNav(); // Update navigation buttons and status
             }
 
+            // Populates a single paystub preview with data
             populateStub(stubElement, data) {
                 const find = (selector) => stubElement.querySelector(`[data-id="${selector}"]`);
                 
+                // Populate static information
                 find('businessName').textContent = data.businessName;
                 find('businessAddress').textContent = data.businessAddress;
                 find('businessEin').textContent = `EIN: ${data.businessEin}`;
@@ -687,12 +701,12 @@
                 find('payDate').textContent = formatDate(data.payDate);
                 find('payPeriodRange').textContent = `${formatDate(data.payPeriodStart)} - ${formatDate(data.payPeriodEnd)}`;
                 
-                // Tables
+                // Populate tables
                 this.updateEarningsTable(find('earnings-table'), data.earnings, data.grossPay);
                 this.updateGenericTable(find('deductions-table'), data.deductions, data.totalDeductions, "Total Deductions");
                 this.updateGenericTable(find('taxes-table'), data.taxes, data.totalTaxes, "Total Taxes");
                 
-                // Summary
+                // Populate summary section
                 find('grossPay').textContent = formatCurrency(data.grossPay);
                 find('totalDeductions').textContent = formatCurrency(data.totalDeductions);
                 find('totalTaxes').textContent = formatCurrency(data.totalTaxes);
@@ -703,9 +717,10 @@
                 find('summary-netPay').textContent = formatCurrency(data.netPay);
             }
 
+            // Updates the earnings table with calculated values
             updateEarningsTable(table, items, total) {
                 const tbody = table.querySelector('tbody');
-                tbody.innerHTML = '';
+                tbody.innerHTML = ''; // Clear existing rows
                  if (!items || items.length === 0) {
                     tbody.innerHTML = `<tr><td colspan="5">None</td></tr>`;
                     return;
@@ -722,9 +737,10 @@
                 });
             }
             
+            // Updates generic tables (deductions, taxes)
             updateGenericTable(table, items, total, totalLabel) {
                  const tbody = table.querySelector('tbody');
-                tbody.innerHTML = '';
+                tbody.innerHTML = ''; // Clear existing rows
                 if (!items || items.length === 0) {
                     tbody.innerHTML = `<tr><td colspan="3">None</td></tr>`;
                     return;
@@ -739,24 +755,29 @@
                 });
             }
 
+            // Shows a specific paystub by index
             showStub(index) {
-                if (index < 0 || index >= this.totalStubs) return;
+                if (index < 0 || index >= this.totalStubs) return; // Boundary check
                 this.currentIndex = index;
                 this.container.querySelectorAll('.paystub-wrapper').forEach((stub, i) => {
-                    stub.classList.toggle('active', i === this.currentIndex);
+                    stub.classList.toggle('active', i === this.currentIndex); // Toggle active class
                 });
-                this.updateNav();
+                this.updateNav(); // Update navigation buttons
             }
             
+            // Navigates to the next paystub
             next() { this.showStub(this.currentIndex + 1); }
+            // Navigates to the previous paystub
             prev() { this.showStub(this.currentIndex - 1); }
             
+            // Updates the navigation status text and button states
             updateNav() {
                 document.getElementById('stub-nav-status').textContent = `Stub ${this.currentIndex + 1} of ${this.totalStubs}`;
                 document.getElementById('prev-stub').disabled = this.currentIndex === 0;
                 document.getElementById('next-stub').disabled = this.currentIndex >= this.totalStubs - 1;
             }
 
+            // Gets the HTML content of the currently active paystub for PDF generation
             getCurrentStubHTML() {
                 const activeStub = this.container.querySelector('.paystub-wrapper.active');
                 return activeStub ? activeStub.innerHTML : "<div>No paystub selected.</div>";
@@ -771,41 +792,58 @@
                 this.updateCallback = updateCallback;
                 this.dataService = new BuellDocsApp.DataService();
 
+                // Listen for input changes to trigger paystub recalculation
                 this.form.addEventListener('input', (e) => {
                     if (e.target.id === 'incomeType' || e.target.id === 'incomeAmount' || e.target.id === 'payPeriod') {
-                        this.handleIncomeCalculation();
+                        this.handleIncomeCalculation(); // Recalculate income when relevant fields change
                     }
-                    this.updateCallback();
+                    if (e.target.id === 'payPeriod' || e.target.id === 'numPaystubs') {
+                        this.generateDateInputs(); // Regenerate dates if pay period or number of stubs changes
+                    }
+                    this.updateCallback(); // Trigger overall update
                 });
-                this.setupDynamicFields();
-                this.populateStateOptions();
-                this.setupBatchGeneration();
-                this.setDefaultDates();
-                this.addDefaultEarningDeduction();
-                this.handleIncomeCalculation();
+
+                this.setupDynamicFields(); // Setup add/remove for earnings/deductions
+                this.populateStateOptions(); // Populate state dropdown
+                this.setupBatchGeneration(); // Setup dynamic date inputs for multiple stubs
+                this.addDefaultEarningDeduction(); // Add initial earning/deduction rows
+                this.handleIncomeCalculation(); // Initial income calculation
             }
             
+            // Gathers all form data into a structured object
             getFormData() {
-                // Helper to get values from dynamic fields
+                // Helper to get values from dynamic fields (earnings or deductions)
                 const getDynamicData = (containerId, hasRateAndHours) => {
                     const items = [];
                     const ytd = {};
-                    document.querySelectorAll(`#${containerId} .dynamic-field-grid`).forEach(field => {
+                    // Select all dynamic field rows, excluding the header (which is also .dynamic-field-grid)
+                    document.querySelectorAll(`#${containerId} .dynamic-field-grid`).forEach((field, index) => {
+                        if (index === 0) return; // Skip the header row
                         const descInput = field.querySelector('[name*="Description"]');
-                        if (!descInput) return; // Skip the header row
+                        if (!descInput) return; // Skip if description input is missing
 
                         const description = descInput.value;
-                        const current = parseFloat(field.querySelector('[name*="AmountCurrent"]').value) || 0;
-                        const ytdVal = parseFloat(field.querySelector('[name*="AmountYTD"]').value) || 0;
+                        let current = 0;
+                        let ytdVal = 0;
+
+                        if (hasRateAndHours) {
+                            // For earnings, current is calculated from rate and hours
+                            current = parseFloat(field.querySelector('[name*="AmountCurrent"]').value) || 0;
+                            ytdVal = parseFloat(field.querySelector('[name*="AmountYTD"]').value) || 0;
+                        } else {
+                            // For deductions, current and YTD are direct inputs
+                            current = parseFloat(field.querySelector('[name*="AmountCurrent"]').value) || 0;
+                            ytdVal = parseFloat(field.querySelector('[name*="AmountYTD"]').value) || 0;
+                        }
                         
-                        if(description) {
+                        if(description) { // Only add if description is not empty
                             const item = { description, current };
                             if(hasRateAndHours){
                                 item.rate = parseFloat(field.querySelector('[name*="Rate"]').value) || 0;
                                 item.hours = parseFloat(field.querySelector('[name*="Hours"]').value) || 0;
                             }
                             items.push(item);
-                            ytd[description] = ytdVal;
+                            ytd[description] = ytdVal; // Store YTD for this specific item description
                         }
                     });
                     return { items, ytd };
@@ -814,9 +852,11 @@
                 const earningsData = getDynamicData('earnings-container', true);
                 const deductionsData = getDynamicData('deductions-container', false);
 
+                // Collect paystub specific dates for batch generation
                 const stubs = [];
                 const numPaystubs = parseInt(document.getElementById('numPaystubs').value, 10);
                 const payPeriod = document.getElementById('payPeriod').value;
+
                 for(let i=0; i<numPaystubs; i++){
                     const payPeriodStart = document.getElementById(`payPeriodStart-${i}`).value;
                     const { payPeriodEnd, payDate } = this.calculateEndAndPayDates(payPeriodStart, payPeriod);
@@ -832,34 +872,48 @@
                     employeeId: document.getElementById('employeeId').value,
                     employeeSsn: document.getElementById('employeeSsn').value,
                     payPeriod: document.getElementById('payPeriod').value,
-                    payRate: parseFloat(document.getElementById('payRate').value) || 0,
+                    payRate: parseFloat(document.getElementById('payRate').value) || 0, // Not directly used in calculation, but good to keep
                     taxYear: document.getElementById('taxYear').value,
                     filingStatus: document.getElementById('filingStatus').value,
                     state: document.getElementById('state').value,
                     numPaystubs: numPaystubs,
-                    stubs: stubs,
+                    stubs: stubs, // Contains start, end, and pay dates for each stub
                     earnings: earningsData.items,
                     deductions: deductionsData.items,
-                    initialYtd: {
+                    initialYtd: { // Initial YTD values from form input
                         earnings: earningsData.ytd,
                         deductions: deductionsData.ytd,
-                        taxes: {} // Taxes are calculated, not input
+                        taxes: {} // Taxes YTD are purely calculated, not manually input here
                     }
                 };
             }
 
+            // Sets up listener for number of paystubs and generates date inputs
             setupBatchGeneration() {
                 const numInput = document.getElementById('numPaystubs');
                 numInput.addEventListener('input', () => this.generateDateInputs());
-                this.generateDateInputs();
+                this.generateDateInputs(); // Initial generation on load
             }
 
+            // Dynamically generates date input fields based on number of paystubs selected
             generateDateInputs() {
                 const container = document.getElementById('paystub-dates-container');
                 const num = parseInt(document.getElementById('numPaystubs').value, 10) || 1;
+                const payPeriod = document.getElementById('payPeriod').value;
+                let daysToAdd = 0;
+                switch (payPeriod) {
+                    case 'weekly': daysToAdd = 7; break;
+                    case 'bi-weekly': daysToAdd = 14; break;
+                    // Semi-monthly and monthly are approximated for initial date display
+                    case 'semi-monthly': daysToAdd = 15; break; 
+                    case 'monthly': daysToAdd = 30; break;
+                    default: daysToAdd = 14; // Default to bi-weekly
+                }
+
                 container.innerHTML = '';
                 let lastStartDate = new Date();
-                lastStartDate.setDate(lastStartDate.getDate() - (14 * (num > 1 ? num - 1 : 0))); // Initial stagger
+                // Adjust the starting date for the first paystub to ensure a logical sequence for multiple stubs
+                lastStartDate.setDate(lastStartDate.getDate() - (daysToAdd * (num > 1 ? num - 1 : 0)));
 
                 for (let i = 0; i < num; i++) {
                     const div = document.createElement('div');
@@ -867,11 +921,13 @@
                     div.innerHTML = `<label for="payPeriodStart-${i}">Paystub ${i + 1} Start Date</label>
                                      <input type="date" id="payPeriodStart-${i}" name="payPeriodStart-${i}">`;
                     container.appendChild(div);
+                    // Set default date for the input
                     document.getElementById(`payPeriodStart-${i}`).value = lastStartDate.toISOString().split('T')[0];
-                    lastStartDate.setDate(lastStartDate.getDate() + 14); // Default to bi-weekly advance
+                    lastStartDate.setDate(lastStartDate.getDate() + daysToAdd); // Advance for the next stub
                 }
             }
 
+            // Calculates the end date and pay date based on start date and pay frequency
             calculateEndAndPayDates(startDateString, payPeriod) {
                 const startDate = new Date(startDateString + 'T00:00:00');
                 const endDate = new Date(startDate);
@@ -879,27 +935,34 @@
                 
                 switch(payPeriod) {
                     case 'weekly':
-                        endDate.setDate(startDate.getDate() + 6);
+                        endDate.setDate(startDate.getDate() + 6); // 7 days in period
+                        payDate = new Date(endDate);
+                        payDate.setDate(endDate.getDate() + 5); // Pay 5 days after period end (typical)
+                        break;
+                    case 'bi-weekly':
+                        endDate.setDate(startDate.getDate() + 13); // 14 days in period
                         payDate = new Date(endDate);
                         payDate.setDate(endDate.getDate() + 5); // Pay 5 days after period end
                         break;
-                    case 'bi-weekly':
-                        endDate.setDate(startDate.getDate() + 13);
-                         payDate = new Date(endDate);
-                        payDate.setDate(endDate.getDate() + 5);
-                        break;
                     case 'semi-monthly':
-                        if (startDate.getDate() === 1) {
+                        if (startDate.getDate() <= 15) {
                             endDate.setDate(15);
                         } else {
-                            endDate.setMonth(endDate.getMonth() + 1, 0); // Last day of month
+                            endDate.setMonth(endDate.getMonth() + 1);
+                            endDate.setDate(0); // Last day of previous month (which is current month's last day)
                         }
-                         payDate = new Date(endDate);
+                        payDate = new Date(endDate);
                         payDate.setDate(endDate.getDate() + 5);
                         break;
                     case 'monthly':
-                        endDate.setMonth(endDate.getMonth() + 1, 0);
-                         payDate = new Date(endDate);
+                        endDate.setMonth(endDate.getMonth() + 1);
+                        endDate.setDate(0); // Last day of previous month (which is current month's last day)
+                        payDate = new Date(endDate);
+                        payDate.setDate(endDate.getDate() + 5);
+                        break;
+                    default: // Fallback to bi-weekly
+                        endDate.setDate(startDate.getDate() + 13);
+                        payDate = new Date(endDate);
                         payDate.setDate(endDate.getDate() + 5);
                         break;
                 }
@@ -909,6 +972,7 @@
                 };
             }
 
+            // Handles calculation of pay rate/amount based on selected income type
             handleIncomeCalculation() {
                 const incomeType = document.getElementById('incomeType').value;
                 const incomeAmount = parseFloat(document.getElementById('incomeAmount').value) || 0;
@@ -928,34 +992,47 @@
                     case 'annual': annualSalary = incomeAmount; break;
                     case 'monthly': annualSalary = incomeAmount * 12; break;
                     case 'weekly': annualSalary = incomeAmount * 52; break;
+                    default: annualSalary = 0; break;
                 }
                 
                 const grossPerPeriod = pMath.divide(annualSalary, payPeriodsPerYear[payPeriod]);
-                const hoursPerPeriod = { weekly: 40, 'bi-weekly': 80, 'semi-monthly': 86.67, monthly: 173.33 };
+                // Typical working hours per period for a full-time employee (approximate for semi-monthly/monthly)
+                const hoursPerPeriod = { weekly: 40, 'bi-weekly': 80, 'semi-monthly': 86.67, monthly: 173.33 }; 
                 const hourlyRate = pMath.divide(grossPerPeriod, hoursPerPeriod[payPeriod]);
                 
-                // Update the form fields
+                // Update the first earning entry, assuming it's 'Regular Pay'
+                // We target the second .dynamic-field-grid because the first is the header row
+                const firstEarningRow = document.querySelector('#earnings-container .dynamic-field-grid:not(:first-child)'); 
+                if (firstEarningRow) {
+                    const descInput = firstEarningRow.querySelector('[name*="Description"]');
+                    const rateInput = firstEarningRow.querySelector('[name*="Rate"]');
+                    const hoursInput = firstEarningRow.querySelector('[name*="Hours"]');
+                    
+                    if (descInput && rateInput && hoursInput) {
+                        descInput.value = 'Regular Pay'; // Ensure consistent label
+                        rateInput.value = pMath.round(hourlyRate);
+                        hoursInput.value = hoursPerPeriod[payPeriod].toFixed(2);
+                        // The 'input' event listeners attached in addDynamicField for rate and hours
+                        // will automatically trigger the calculation for 'AmountCurrent' and then
+                        // call this.updateCallback(), leading to a full re-render.
+                    }
+                }
+
+                // Update the 'Pay Rate' field in the Pay Details section
                 document.getElementById('payRate').value = pMath.round(hourlyRate);
-                const regularPayAmountField = document.querySelector('#earnings-container input[name="earningAmountCurrent"]');
-                const regularPayHoursField = document.querySelector('#earnings-container input[name="earningHours"]');
-                if (regularPayAmountField) regularPayAmountField.value = pMath.round(grossPerPeriod);
-                if (regularPayHoursField) regularPayHoursField.value = hoursPerPeriod[payPeriod].toFixed(2);
             }
 
-
-            setDefaultDates() {
-                // This is now handled by generateDateInputs
-            }
-            
+            // Populates the state dropdown with names from tax data
             async populateStateOptions() {
                 const stateSelect = document.getElementById('state');
                 const states = this.dataService.getAllStateNames();
                 for (const abbr in states) {
                     stateSelect.add(new Option(states[abbr], abbr));
                 }
-                stateSelect.value = 'NJ';
+                stateSelect.value = 'NJ'; // Set default to New Jersey as requested
             }
             
+            // Sets up event listeners for 'Add Earning' and 'Add Deduction' buttons
             setupDynamicFields() {
                 document.getElementById('add-earning').addEventListener('click', () => {
                     this.addDynamicField('earnings-container', true);
@@ -965,11 +1042,14 @@
                 });
             }
 
+            // Adds default 'Regular Pay' earning and 'Health Insurance' deduction on load
             addDefaultEarningDeduction() {
-                this.addDynamicField('earnings-container', true, { desc: 'Regular Pay', curr: 2500, ytd: 50000, rate: 31.25, hours: 80 });
+                // Ensure default earnings are added after the header row (index 0)
+                this.addDynamicField('earnings-container', true, { desc: 'Regular Pay', curr: 0, ytd: 0, rate: 31.25, hours: 80 }); // Current and YTD will be overridden by income calculator
                 this.addDynamicField('deductions-container', false, { desc: 'Health Insurance', curr: 150, ytd: 3000 });
             }
 
+            // Adds a new dynamic input field (for earnings or deductions)
             addDynamicField(containerId, hasRateAndHours, defaults = {}) {
                 const container = document.getElementById(containerId);
                 const newField = document.createElement('div');
@@ -983,67 +1063,50 @@
                 
                 const baseName = containerId.includes('earn') ? 'earning' : 'deduction';
                 
-                let rateHoursHtml = '';
-                if(hasRateAndHours){
-                    rateHoursHtml = `
-                        <input type="number" name="${baseName}Rate" placeholder="Rate" step="0.01" value="${rate}">
-                        <input type="number" name="${baseName}Hours" placeholder="Hours" step="0.01" value="${hours}">
-                    `;
-                } else {
-                    rateHoursHtml = '<span colspan="2"></span>'; // Placeholder
-                }
-
+                // HTML for input fields based on whether it's an earning (has rate/hours) or deduction
                 newField.innerHTML = `
                     <input type="text" name="${baseName}Description" placeholder="Description" value="${desc}">
                     ${hasRateAndHours ? `
                         <input type="number" name="${baseName}Rate" placeholder="Rate" step="0.01" value="${rate}">
                         <input type="number" name="${baseName}Hours" placeholder="Hours" step="0.01" value="${hours}">
+                        <input type="hidden" name="${baseName}AmountCurrent"> <!-- Hidden, calculated from Rate * Hours -->
+                        <input type="number" name="${baseName}AmountYTD" placeholder="YTD" step="0.01" value="${ytd}">
                     ` : `
                         <input type="number" name="${baseName}AmountCurrent" placeholder="Amount" step="0.01" value="${curr}">
                         <input type="number" name="${baseName}AmountYTD" placeholder="YTD" step="0.01" value="${ytd}">
+                        <span></span> <!-- Placeholder to align grid -->
                     `}
                     <button type="button" class="btn-remove">&times;</button>
                 `;
                 
-                 if (!hasRateAndHours) {
-                    newField.querySelector('input[name*="Current"]').addEventListener('input', (e) => {
-                        const rateField = document.getElementById('payRate');
-                        if (rateField) rateField.value = "";
-                    });
-                }
-                
-                // For earnings, current amount is calculated from rate and hours
-                 if (hasRateAndHours) {
+                // If it's an earning field, set up listeners to calculate 'Current' amount
+                if (hasRateAndHours) {
                     const rateInput = newField.querySelector('input[name*="Rate"]');
                     const hoursInput = newField.querySelector('input[name*="Hours"]');
-                    const currentAmountInput = document.createElement('input');
-                    currentAmountInput.type = 'hidden';
-                    currentAmountInput.name = `${baseName}AmountCurrent`;
-                    newField.appendChild(currentAmountInput);
+                    const currentAmountInput = newField.querySelector('input[name*="AmountCurrent"]'); // This is now hidden
                     
-                    const ytdInput = document.createElement('input');
-                    ytdInput.type = 'hidden';
-                    ytdInput.name = `${baseName}AmountYTD`;
-                    ytdInput.value = ytd;
-                    newField.appendChild(ytdInput);
-
                     const calculateCurrent = () => {
                          const currentAmount = pMath.multiply(parseFloat(rateInput.value) || 0, parseFloat(hoursInput.value) || 0);
                          currentAmountInput.value = pMath.round(currentAmount);
-                         this.updateCallback();
+                         this.updateCallback(); // Trigger a full app update
                     };
                     rateInput.addEventListener('input', calculateCurrent);
                     hoursInput.addEventListener('input', calculateCurrent);
-                    calculateCurrent(); // Initial calculation
+                    calculateCurrent(); // Initial calculation for the new row
                 }
 
                 container.appendChild(newField);
+                // Add event listener for the remove button
                 newField.querySelector('.btn-remove').addEventListener('click', (e) => {
                     e.target.parentElement.remove();
-                    this.updateCallback();
+                    this.updateCallback(); // Trigger update after removal
                 });
+                // Add input listeners for all inputs in the new row to trigger updates
                 newField.querySelectorAll('input').forEach(input => {
-                    input.addEventListener('input', () => this.updateCallback());
+                    // Only add to non-hidden inputs, as hidden currentAmount is updated by rate/hours
+                    if (input.type !== 'hidden') {
+                        input.addEventListener('input', () => this.updateCallback());
+                    }
                 });
             }
         }
@@ -1053,13 +1116,14 @@
         class UIController {
             constructor() {
                 this.previewUpdater = new BuellDocsApp.PreviewUpdater();
-                // Pass the processUpdate method as a callback
-                this.formManager = new BuellDocsApp.FormManager(() => this.processUpdate());
                 this.calculator = new BuellDocsApp.PaystubCalculator();
+                // Pass the processUpdate method as a callback to FormManager
+                this.formManager = new BuellDocsApp.FormManager(() => this.processUpdate());
                 this.setupEventListeners();
-                this.processUpdate(); // Initial calculation
+                this.processUpdate(); // Initial calculation and render on page load
             }
 
+            // Main method to fetch data, calculate, and update preview
             async processUpdate() {
                 try {
                     const formData = this.formManager.getFormData();
@@ -1067,20 +1131,22 @@
                     this.previewUpdater.updateAll(calculationResults);
                 } catch (error) {
                     console.error("Calculation Error:", error);
+                    // Optionally display an error message to the user here
                 }
             }
 
+            // Sets up event listeners for global UI elements (e.g., PDF download, navigation)
             setupEventListeners() {
                 document.getElementById('download-pdf').addEventListener('click', () => {
                     const currentStubHTML = this.previewUpdater.getCurrentStubHTML();
                     const element = document.createElement('div');
-                    element.innerHTML = currentStubHTML;
+                    element.innerHTML = currentStubHTML; // Create a new element to avoid modifying the live preview DOM directly
 
                     const opt = {
                         margin: 0.5,
                         filename: 'paystub.pdf',
                         image: { type: 'jpeg', quality: 0.98 },
-                        html2canvas: { scale: 2, useCORS: true },
+                        html2canvas: { scale: 2, useCORS: true }, // UseCORS might be needed for external images, though none are used here. Scale for better quality.
                         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
                     };
                     html2pdf().from(element).set(opt).save();
@@ -1093,6 +1159,7 @@
         BuellDocsApp.UIController = UIController;
 
         // --- APP INITIALIZATION ---
+        // Initializes the main UIController once the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', () => {
             new BuellDocsApp.UIController();
         });
