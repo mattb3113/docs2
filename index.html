@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- The html2pdf.js library is used for the PDF generation functionality -->
-    <!-- CRITICAL FIX: Changed xintegrity to integrity for proper script loading -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" xintegrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         /* Modern CSS Reset */
@@ -148,7 +147,6 @@
             margin: 15px 0;
             border-radius: 4px;
         }
-        /* CRITICAL FIX: Enhanced disclaimer visibility for 2025 tax data */
         #tax-year-disclaimer {
             background-color: #fff8e6;
             border-left-color: #ffc107;
@@ -208,7 +206,6 @@
         #previews-container .paystub-wrapper.active { display: block; }
         
         /* Paystub Template Styling for Professionalism */
-        /* CRITICAL FIX: Added/Enhanced CSS for professional paystub design */
         #paystub-template {
             position: relative;
             background: white;
@@ -216,80 +213,48 @@
             padding: 30px;
             font-family: 'Inter', sans-serif;
             font-size: 14px;
-            border: 1px solid #e0e0e0; /* Lighter border for professionalism */
+            border: 1px solid #e0e0e0;
             border-radius: 8px;
-            /* box-shadow: 0 2px 10px rgba(0,0,0,0.05); */ /* Subtle shadow - original was good, keeping it. */
             background-color: #ffffff;
-            color: #333; /* Darker text for better contrast */
+            color: #333;
         }
 
         .paystub-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
         .paystub-header h3 { 
-            font-size: 24px !important; /* CRITICAL FIX: Enforced font size */
-            margin-bottom: 5px !important; /* CRITICAL FIX: Enforced margin */
-            color: #1a1a1a !important; /* CRITICAL FIX: Enforced color */
-            margin: 0 0 4px 0; /* Original */
-            /* font-size: 28px; */ /* Original */
-            font-weight: 700; 
+            font-size: 24px !important; 
+            margin-bottom: 5px !important; 
+            color: #1a1a1a !important; 
         }
         .paystub-header p { 
-            color: #444 !important; /* CRITICAL FIX: Enforced color */
-            margin: 3px 0 !important; /* CRITICAL FIX: Enforced margin */
-            font-size: 13px !important; /* CRITICAL FIX: Enforced font size */
-            margin: 2px 0; /* Original */
-            /* font-size: 13px; */ /* Original */
-            color: #555; /* Original */
+            color: #444 !important; 
+            margin: 3px 0 !important; 
+            font-size: 13px !important; 
         }
         .paystub-header .statement-title { 
-            background-color: #f0f4f7 !important; /* CRITICAL FIX: Enforced background */
-            padding: 8px 15px !important; /* CRITICAL FIX: Enforced padding */
-            border-radius: 4px !important; /* CRITICAL FIX: Enforced border-radius */
-            display: inline-block !important; /* CRITICAL FIX: Enforced display */
-            font-weight: 800 !important; /* CRITICAL FIX: Enforced font-weight */
-            font-size: 1.1rem !important; /* CRITICAL FIX: Enforced font-size */
-            letter-spacing: 1.5px !important; /* CRITICAL FIX: Enforced letter-spacing */
-            color: #172b4d !important; /* CRITICAL FIX: Enforced color */
-            margin-top: 15px !important; /* CRITICAL FIX: Enforced margin-top */
-            text-transform: uppercase !important; /* CRITICAL FIX: Enforced text-transform */
-            border: 1px solid #e0e0e0 !important; /* CRITICAL FIX: Enforced border */
-            /* Original below */
-            /* font-weight: 800; */
-            /* font-size: 1.1rem; */
-            /* letter-spacing: 1.5px; */
-            /* color: var(--secondary-color); */
-            /* margin-top: 15px; */
-            /* text-transform: uppercase; */
-            /* background-color: #f0f4f7; */
-            /* padding: 8px 15px; */
-            /* border-radius: 4px; */
-            /* display: inline-block; */
+            background-color: #f0f4f7 !important; 
+            padding: 8px 15px !important; 
+            border-radius: 4px !important; 
+            display: inline-block !important; 
+            font-weight: 800 !important; 
+            font-size: 1.1rem !important; 
+            letter-spacing: 1.5px !important; 
+            color: #172b4d !important; 
+            margin-top: 15px !important; 
+            text-transform: uppercase !important; 
+            border: 1px solid #e0e0e0 !important; 
         }
 
         .info-grid {
-            background-color: #fafbfc !important; /* CRITICAL FIX: Enforced background */
-            border: 1px solid #eaeaea !important; /* CRITICAL FIX: Enforced border */
-            border-radius: 4px !important; /* CRITICAL FIX: Enforced border-radius */
-            padding: 15px !important; /* CRITICAL FIX: Enforced padding */
-            /* Original below */
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive columns */
-            gap: 20px 30px; /* Increased gap for better spacing */
-            /* padding: 20px; */
-            /* background-color: #f9fafb; */
-            /* border-radius: 8px; */
-            margin-bottom: 25px;
-            /* border: 1px solid #e8e8e8; */
+            background-color: #fafbfc !important; 
+            border: 1px solid #eaeaea !important; 
+            border-radius: 4px !important; 
+            padding: 15px !important; 
         }
         .info-grid div { font-size: 13px; line-height: 1.8; }
         .info-grid strong { 
-            color: #172b4d !important; /* CRITICAL FIX: Enforced color */
-            font-weight: 600 !important; /* CRITICAL FIX: Enforced font-weight */
-            margin-bottom: 3px !important; /* CRITICAL FIX: Enforced margin */
-            /* Original below */
-            display: block; 
-            /* font-weight: 700; */
-            font-size: 14px; 
-            /* margin-bottom: 5px; */
+            color: #172b4d !important; 
+            font-weight: 600 !important; 
+            margin-bottom: 3px !important; 
         }
         .info-grid span { color: #555; }
         
@@ -300,124 +265,75 @@
         }
 
         .paystub-table { 
-            width: 100% !important; /* CRITICAL FIX: Enforced width */
-            border-collapse: collapse !important; /* CRITICAL FIX: Enforced border-collapse */
-            margin: 15px 0 !important; /* CRITICAL FIX: Enforced margin */
-            /* Original below */
-            /* width: 100%; */
-            /* border-collapse: collapse; */
-            /* margin-top: 10px; */
+            width: 100% !important; 
+            border-collapse: collapse !important; 
+            margin: 15px 0 !important; 
         }
         .paystub-table caption { 
-            text-align: left !important; /* CRITICAL FIX: Enforced text-align */
-            padding-bottom: 8px !important; /* CRITICAL FIX: Enforced padding */
-            color: #172b4d !important; /* CRITICAL FIX: Enforced color */
-            font-weight: 700 !important; /* CRITICAL FIX: Enforced font-weight */
-            border-bottom: 1px solid #e0e0e0 !important; /* CRITICAL FIX: Enforced border */
-            margin-bottom: 8px !important; /* CRITICAL FIX: Enforced margin */
-            /* Original below */
-            /* font-size: 1.3rem; */
-            /* text-transform: uppercase; */
-            /* font-weight: 700; */
-            /* text-align: left; */
-            /* padding-bottom: 12px; */
-            /* color: var(--heading-color); */
-            /* border-bottom: 1px solid #ddd; */
-            /* margin-bottom: 10px; */
+            text-align: left !important; 
+            padding-bottom: 8px !important; 
+            color: #172b4d !important; 
+            font-weight: 700 !important; 
+            border-bottom: 1px solid #e0e0e0 !important; 
+            margin-bottom: 8px !important; 
         }
         .paystub-table th, .paystub-table td { 
-            padding: 10px 12px !important; /* CRITICAL FIX: Enforced padding */
-            text-align: left !important; /* CRITICAL FIX: Enforced text-align */
-            border-bottom: 1px dashed #e9e9e9 !important; /* CRITICAL FIX: Enforced border */
-            /* Original below */
-            /* padding: 10px 12px; */
-            /* text-align: left; */
-            /* border-bottom: 1px dashed #e9e9e9; */
+            padding: 10px 12px !important; 
+            text-align: left !important; 
+            border-bottom: 1px dashed #e9e9e9 !important; 
         } 
         .paystub-table thead th { 
-            background-color: #f8f9fa !important; /* CRITICAL FIX: Enforced background */
-            font-weight: 600 !important; /* CRITICAL FIX: Enforced font-weight */
-            color: #333 !important; /* CRITICAL FIX: Enforced color */
-            padding: 8px 10px !important; /* CRITICAL FIX: Enforced padding */
-            border-bottom: 2px solid #e0e0e0 !important; /* CRITICAL FIX: Enforced border */
-            /* Original below */
-            /* background-color: #f5f7f9; */
-            /* font-weight: 700; */
-            /* font-size: 0.8em; */
-            /* color: #333; */
-            /* text-transform: uppercase; */
-            /* border-bottom: 2px solid #d0d0d0; */
+            background-color: #f5f7f9 !important; 
+            font-weight: 700 !important; 
         }
-        .paystub-table tbody tr:last-child td { border-bottom: none !important; } /* CRITICAL FIX: Enforced no border */
+        .paystub-table tbody tr:last-child td { border-bottom: none !important; } 
         .paystub-table .text-right { text-align: right; }
         .paystub-table tfoot td { 
             font-weight: 700; 
             background-color: #f0f4f7; 
-            border-top: 2px solid #d0d0d0; /* Stronger border for footer */
+            border-top: 2px solid #d0d0d0; 
             font-size: 1.1em;
             color: #172b4d;
         }
 
         .paystub-summary {
-            background: linear-gradient(to bottom, #172b4d, #0d1a2c) !important; /* CRITICAL FIX: Enforced background */
-            color: white !important; /* CRITICAL FIX: Enforced color */
-            border-radius: 6px !important; /* CRITICAL FIX: Enforced border-radius */
-            padding: 20px !important; /* CRITICAL FIX: Enforced padding */
-            margin-top: 20px !important; /* CRITICAL FIX: Enforced margin */
-            /* Original below */
-            /* background-color: var(--secondary-color); */
-            /* padding: 25px; */
-            /* border-radius: 10px; */
-            /* margin-top: 30px; */
+            background: linear-gradient(to bottom, #172b4d, #0d1a2c) !important; 
+            color: white !important; 
+            border-radius: 6px !important; 
+            padding: 20px !important; 
+            margin-top: 20px !important; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .summary-grid {
-            display: grid !important; /* CRITICAL FIX: Enforced display */
-            grid-template-columns: repeat(4, 1fr) !important; /* CRITICAL FIX: Enforced grid-template-columns */
-            gap: 15px !important; /* CRITICAL FIX: Enforced gap */
-            /* Original below */
-            /* display: grid; */
-            /* grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); */
-            /* gap: 20px; */
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 15px !important;
             text-align: center;
         }
         .summary-item strong { 
-            font-size: 12px !important; /* CRITICAL FIX: Enforced font-size */
-            opacity: 0.8 !important; /* CRITICAL FIX: Enforced opacity */
-            margin-bottom: 4px !important; /* CRITICAL FIX: Enforced margin */
-            text-transform: uppercase !important; /* CRITICAL FIX: Enforced text-transform */
-            letter-spacing: 0.5px !important; /* CRITICAL FIX: Enforced letter-spacing */
-            /* Original below */
-            display: block; 
-            /* font-size: 13px; */
-            /* opacity: 0.85; */
-            /* margin-bottom: 6px; */
-            /* text-transform: uppercase; */
+            font-size: 12px !important; 
+            opacity: 0.8 !important; 
+            margin-bottom: 4px !important; 
+            text-transform: uppercase !important; 
+            letter-spacing: 0.5px !important; 
         }
         .summary-item span { 
-            font-size: 18px !important; /* CRITICAL FIX: Enforced font-size */
-            font-weight: 700 !important; /* CRITICAL FIX: Enforced font-weight */
-            /* Original below */
-            /* font-size: 20px; */
-            /* font-weight: 700; */
+            font-size: 18px !important; 
+            font-weight: 700 !important; 
             color: #ffffff; 
         }
         #net-pay-display { 
-            font-size: 24px !important; /* CRITICAL FIX: Enforced font-size */
-            font-weight: 800 !important; /* CRITICAL FIX: Enforced font-weight */
-            color: #4cceac !important; /* CRITICAL FIX: Enforced color */
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important; /* CRITICAL FIX: Enforced text-shadow */
-            /* Original below */
-            /* font-size: 28px; */
-            /* font-weight: 800; */
-            /* color: var(--accent-color); */
+            font-size: 24px !important; 
+            font-weight: 800 !important; 
+            color: #4cceac !important; 
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important; 
         }
 
         /* Footer */
         .footer { text-align: center; margin-top: 30px; padding: 20px; color: #8894a7; font-size: 0.9rem; }
         .footer a { color: var(--primary-color); text-decoration: none; }
 
-        /* CRITICAL FIX: Add print media queries for better PDF formatting */
+        /* Print media queries for better PDF formatting */
         @media print {
             body { margin: 0 !important; }
             .paystub-wrapper { page-break-inside: avoid !important; }
@@ -489,6 +405,11 @@
                         <div class="form-group"><label for="employeeAddress">Employee Address</label><input type="text" id="employeeAddress" value="456 Home Street, Suburbia, 12345"></div>
                         <div class="form-group"><label for="employeeId">Employee ID</label><input type="text" id="employeeId" value="EMP-007"></div>
                         <div class="form-group"><label for="employeeSsn">SSN (Optional, Last 4)</label><input type="text" id="employeeSsn" placeholder="XXX-XX-1234" value="XXX-XX-5678"></div>
+                         <!-- New field for Initial YTD Gross Pay -->
+                        <div class="form-group">
+                            <label for="initialYtdGross">Initial YTD Gross Pay (before this period)</label>
+                            <input type="number" id="initialYtdGross" name="initialYtdGross" step="0.01" value="0">
+                        </div>
                     </section>
                     
                     <!-- Pay Details -->
@@ -561,9 +482,25 @@
                                 <option value="hoh">Head of Household</option>
                             </select>
                         </div>
+                        <!-- New field for Additional Federal Withholding -->
+                        <div class="form-group">
+                            <label for="additionalFederalWithholding">Additional Federal Withholding (per period)</label>
+                            <input type="number" id="additionalFederalWithholding" name="additionalFederalWithholding" step="0.01" value="0">
+                        </div>
                         <div class="form-group">
                             <label for="state">State</label>
                             <select id="state" name="state"><!-- States will be populated by JS --></select>
+                        </div>
+                        <!-- New field for New Jersey Filing Status -->
+                        <div class="form-group" id="nj-filing-status-group" style="display:none;">
+                            <label for="njFilingStatus">New Jersey Filing Status</label>
+                            <select id="njFilingStatus" name="njFilingStatus">
+                                <option value="single">Single</option>
+                                <option value="married">Married/Civil Union Partner Filing Jointly</option>
+                                <option value="mfs">Married/Civil Union Partner Filing Separately</option>
+                                <option value="hoh">Head of Household</option>
+                                <option value="qw">Qualifying Widow(er)</option>
+                            </select>
                         </div>
                     </section>
                 </form>
@@ -665,14 +602,45 @@
 
         // --- DATA STORE ---
         // Prevents the need for network requests
-        // CRITICAL FIX: Defined taxTablesData first, then populated 2025 using 2024 data.
         const taxTablesData = {
             "2023": {"federal": {"single": {"brackets": [{"rate": 0.10, "upto": 11000}, {"rate": 0.12, "upto": 44725}, {"rate": 0.22, "upto": 95375}, {"rate": 0.24, "upto": 182100}, {"rate": 0.32, "upto": 231250}, {"rate": 0.35, "upto": 578125}, {"rate": 0.37, "upto": Infinity}], "deduction": 13850}, "married": {"brackets": [{"rate": 0.10, "upto": 22000}, {"rate": 0.12, "upto": 89450}, {"rate": 0.22, "upto": 190750}, {"rate": 0.24, "upto": 364200}, {"rate": 0.32, "upto": 462500}, {"rate": 0.35, "upto": 693750}, {"rate": 0.37, "upto": Infinity}], "deduction": 27700}, "hoh": {"brackets": [{"rate": 0.10, "upto": 15700}, {"rate": 0.12, "upto": 59850}, {"rate": 0.22, "upto": 95350}, {"rate": 0.24, "upto": 182100}, {"rate": 0.32, "upto": 231250}, {"rate": 0.35, "upto": 578100}, {"rate": 0.37, "upto": Infinity}], "deduction": 20800}}, "fica": {"social_security_rate": 0.062, "social_security_limit": 160200, "medicare_rate": 0.0145}},
             "2024": {"federal": {"single": {"brackets": [{"rate": 0.10, "upto": 11600}, {"rate": 0.12, "upto": 47150}, {"rate": 0.22, "upto": 100525}, {"rate": 0.24, "upto": 191950}, {"rate": 0.32, "upto": 243725}, {"rate": 0.35, "upto": 609350}, {"rate": 0.37, "upto": Infinity}], "deduction": 14600}, "married": {"brackets": [{"rate": 0.10, "upto": 23200}, {"rate": 0.12, "upto": 94300}, {"rate": 0.22, "upto": 201050}, {"rate": 0.24, "upto": 383900}, {"rate": 0.32, "upto": 487450}, {"rate": 0.35, "upto": 731200}, {"rate": 0.37, "upto": Infinity}], "deduction": 29200}, "hoh": {"brackets": [{"rate": 0.10, "upto": 16550}, {"rate": 0.12, "upto": 63100}, {"rate": 0.22, "upto": 100500}, {"rate": 0.24, "upto": 191950}, {"rate": 0.32, "upto": 243700}, {"rate": 0.35, "upto": 609350}, {"rate": 0.37, "upto": Infinity}], "deduction": 21900}}, "fica": {"social_security_rate": 0.062, "social_security_limit": 168600, "medicare_rate": 0.0145}, "states": {"AL": {"name": "Alabama", "single": {"brackets": [{"rate": 0.02, "upto": 500}, {"rate": 0.04, "upto": 3000}, {"rate": 0.05, "upto": Infinity}]}}, "AK": {"name": "Alaska", "single": {"brackets": []}}, "AZ": {"name": "Arizona", "single": {"brackets": [{"rate": 0.025, "upto": Infinity}]}}, "AR": {"name": "Arkansas", "single": {"brackets": [{"rate": 0.02, "upto": 24299}, {"rate": 0.04, "upto": 87000}, {"rate": 0.049, "upto": Infinity}]}}, "CA": {"name": "California", "single": {"brackets": [{"rate": 0.01, "upto": 10412}, {"rate": 0.02, "upto": 24684}, {"rate": 0.04, "upto": 38959}, {"rate": 0.06, "upto": 54081}, {"rate": 0.08, "upto": 68350}, {"rate": 0.093, "upto": 349137}, {"rate": 0.103, "upto": 418961}, {"rate": 0.113, "upto": 698271}, {"rate": 0.123, "upto": Infinity}]}}, "CO": {"name": "Colorado", "single": {"brackets": [{"rate": 0.044, "upto": Infinity}]}}, "CT": {"name": "Connecticut", "single": {"brackets": [{"rate": 0.03, "upto": 10000}, {"rate": 0.05, "upto": 50000}, {"rate": 0.055, "upto": 100000}, {"rate": 0.06, "upto": 200000}, {"rate": 0.065, "upto": 250000}, {"rate": 0.069, "upto": 500000}, {"rate": 0.0699, "upto": Infinity}]}}, "DE": {"name": "Delaware", "single": {"brackets": [{"rate": 0.022, "upto": 5000}, {"rate": 0.039, "upto": 10000}, {"rate": 0.048, "upto": 20000}, {"rate": 0.052, "upto": 25000}, {"rate": 0.0555, "upto": 60000}, {"rate": 0.066, "upto": Infinity}]}}, "FL": {"name": "Florida", "single": {"brackets": []}}, "GA": {"name": "Georgia", "single": {"brackets": [{"rate": 0.0549, "upto": Infinity}]}}, "HI": {"name": "Hawaii", "single": {"brackets": [{"rate": 0.014, "upto": 2400}, {"rate": 0.032, "upto": 4800}, {"rate": 0.055, "upto": 9600}, {"rate": 0.064, "upto": 14400}, {"rate": 0.068, "upto": 19200}, {"rate": 0.072, "upto": 24000}, {"rate": 0.076, "upto": 36000}, {"rate": 0.079, "upto": 48000}, {"rate": 0.0825, "upto": 150000}, {"rate": 0.09, "upto": 175000}, {"rate": 0.1, "upto": 200000}, {"rate": 0.11, "upto": Infinity}]}}, "ID": {"name": "Idaho", "single": {"brackets": [{"rate": 0.058, "upto": Infinity}]}}, "IL": {"name": "Illinois", "single": {"brackets": [{"rate": 0.0495, "upto": Infinity}]}}, "IN": {"name": "Indiana", "single": {"brackets": [{"rate": 0.0315, "upto": Infinity}]}}, "IA": {"name": "Iowa", "single": {"brackets": [{"rate": 0.057, "upto": Infinity}]}}, "KS": {"name": "Kansas", "single": {"brackets": [{"rate": 0.031, "upto": 15000}, {"rate": 0.0525, "upto": 30000}, {"rate": 0.057, "upto": Infinity}]}}, "KY": {"name": "Kentucky", "single": {"brackets": [{"rate": 0.045, "upto": Infinity}]}}, "LA": {"name": "Louisiana", "single": {"brackets": [{"rate": 0.0185, "upto": 12500}, {"rate": 0.037, "upto": 50000}, {"rate": 0.0425, "upto": Infinity}]}}, "ME": {"name": "Maine", "single": {"brackets": [{"rate": 0.058, "upto": 24500}, {"rate": 0.0675, "upto": 58050}, {"rate": 0.0715, "upto": Infinity}]}}, "MD": {"name": "Maryland", "single": {"brackets": [{"rate": 0.02, "upto": 1000}, {"rate": 0.03, "upto": 2000}, {"rate": 0.04, "upto": 3000}, {"rate": 0.0475, "upto": 100000}, {"rate": 0.05, "upto": 125000}, {"rate": 0.0525, "upto": 150000}, {"rate": 0.055, "upto": 250000}, {"rate": 0.0575, "upto": Infinity}]}}, "MA": {"name": "Massachusetts", "single": {"brackets": [{"rate": 0.05, "upto": Infinity}]}}, "MI": {"name": "Michigan", "single": {"brackets": [{"rate": 0.0425, "upto": Infinity}]}}, "MN": {"name": "Minnesota", "single": {"brackets": [{"rate": 0.0535, "upto": 30070}, {"rate": 0.068, "upto": 98750}, {"rate": 0.0785, "upto": 183340}, {"rate": 0.0985, "upto": Infinity}]}}, "MS": {"name": "Mississippi", "single": {"brackets": [{"rate": 0.04, "upto": 5000}, {"rate": 0.05, "upto": Infinity}]}}, "MO": {"name": "Missouri", "single": {"brackets": [{"rate": 0.0495, "upto": Infinity}]}}, "MT": {"name": "Montana", "single": {"brackets": [{"rate": 0.047, "upto": 20500}, {"rate": 0.059, "upto": Infinity}]}}, "NE": {"name": "Nebraska", "single": {"brackets": [{"rate": 0.0246, "upto": 3220}, {"rate": 0.0351, "upto": 19340}, {"rate": 0.0501, "upto": 32230}, {"rate": 0.0664, "upto": Infinity}]}}, "NV": {"name": "Nevada", "single": {"brackets": []}}, "NH": {"name": "New Hampshire", "single": {"brackets": []}}, "NJ": {"name": "New Jersey", "single": {"brackets": [{"rate": 0.014, "upto": 20000}, {"rate": 0.0175, "upto": 35000}, {"rate": 0.035, "upto": 40000}, {"rate": 0.05525, "upto": 75000}, {"rate": 0.0637, "upto": 500000}, {"rate": 0.0897, "upto": 1000000}, {"rate": 0.1075, "upto": Infinity}]}}, "NM": {"name": "New Mexico", "single": {"brackets": [{"rate": 0.017, "upto": 5500}, {"rate": 0.032, "upto": 11000}, {"rate": 0.049, "upto": 16000}, {"rate": 0.059, "upto": Infinity}]}}, "NY": {"name": "New York", "single": {"brackets": [{"rate": 0.04, "upto": 8500}, {"rate": 0.045, "upto": 11700}, {"rate": 0.0525, "upto": 13900}, {"rate": 0.055, "upto": 80650}, {"rate": 0.06, "upto": 215400}, {"rate": 0.0685, "upto": 1077550}, {"rate": 0.0965, "upto": 5000000}, {"rate": 0.103, "upto": 25000000}, {"rate": 0.109, "upto": Infinity}]}}, "NC": {"name": "North Carolina", "single": {"brackets": [{"rate": 0.0475, "upto": Infinity}]}}, "ND": {"name": "North Dakota", "single": {"brackets": [{"rate": 0.011, "upto": 44725}, {"rate": 0.0204, "upto": 90425}, {"rate": 0.0227, "upto": 222525}, {"rate": 0.0264, "upto": 473975}, {"rate": 0.029, "upto": Infinity}]}}, "OH": {"name": "Ohio", "single": {"brackets": [{"rate": 0.02765, "upto": 26050}, {"rate": 0.03226, "upto": 100000}, {"rate": 0.03688, "upto": Infinity}]}}, "OK": {"name": "Oklahoma", "single": {"brackets": [{"rate": 0.005, "upto": 1000}, {"rate": 0.01, "upto": 2500}, {"rate": 0.02, "upto": 3750}, {"rate": 0.03, "upto": 4900}, {"rate": 0.04, "upto": 7200}, {"rate": 0.0475, "upto": Infinity}]}}, "OR": {"name": "Oregon", "single": {"brackets": [{"rate": 0.0475, "upto": 3750}, {"rate": 0.0675, "upto": 9450}, {"rate": 0.0875, "upto": 125000}, {"rate": 0.099, "upto": Infinity}]}}, "PA": {"name": "Pennsylvania", "single": {"brackets": [{"rate": 0.0307, "upto": Infinity}]}}, "RI": {"name": "Rhode Island", "single": {"brackets": [{"rate": 0.0375, "upto": 68250}, {"rate": 0.0475, "upto": 155050}, {"rate": 0.0599, "upto": Infinity}]}}, "SC": {"name": "South Carolina", "single": {"brackets": [{"rate": 0.03, "upto": 3210}, {"rate": 0.065, "upto": Infinity}]}}, "SD": {"name": "South Dakota", "single": {"brackets": []}}, "TN": {"name": "Tennessee", "single": {"brackets": []}}, "TX": {"name": "Texas", "single": {"brackets": []}}, "UT": {"name": "Utah", "single": {"brackets": [{"rate": 0.0465, "upto": Infinity}]}}, "VT": {"name": "Vermont", "single": {"brackets": [{"rate": 0.0335, "upto": 45300}, {"rate": 0.066, "upto": 109800}, {"rate": 0.076, "upto": 229300}, {"rate": 0.0875, "upto": Infinity}]}}, "VA": {"name": "Virginia", "single": {"brackets": [{"rate": 0.02, "upto": 3000}, {"rate": 0.03, "upto": 5000}, {"rate": 0.05, "upto": 17000}, {"rate": 0.0575, "upto": Infinity}]}}, "WA": {"name": "Washington", "single": {"brackets": []}}, "WV": {"name": "West Virginia", "single": {"brackets": [{"rate": 0.0236, "upto": 10000}, {"rate": 0.0315, "upto": 25000}, {"rate": 0.0354, "upto": 40000}, {"rate": 0.0472, "upto": 60000}, {"rate": 0.0512, "upto": Infinity}]}}, "WI": {"name": "Wisconsin", "single": {"brackets": [{"rate": 0.0354, "upto": 13600}, {"rate": 0.0465, "upto": 27210}, {"rate": 0.053, "upto": 300090}, {"rate": 0.0765, "upto": Infinity}]}}, "WY": {"name": "Wyoming", "single": {"brackets": []}}}}
         };
         // CRITICAL FIX: Add 2025 tax data after 2024 is defined to avoid ReferenceError
         taxTablesData["2025"] = {
-            "federal": {"single": {"brackets": [{"rate": 0.10, "upto": 12000}, {"rate": 0.12, "upto": 48500}, {"rate": 0.22, "upto": 103500}, {"rate": 0.24, "upto": 197500}, {"rate": 0.32, "upto": 250000}, {"rate": 0.35, "upto": 625000}, {"rate": 0.37, "upto": Infinity}], "deduction": 15000}, "married": {"brackets": [{"rate": 0.10, "upto": 24000}, {"rate": 0.12, "upto": 97000}, {"rate": 0.22, "upto": 207000}, {"rate": 0.24, "upto": 395000}, {"rate": 0.32, "upto": 500000}, {"rate": 0.35, "upto": 750000}, {"rate": 0.37, "upto": Infinity}], "deduction": 30000}, "hoh": {"brackets": [{"rate": 0.10, "upto": 17000}, {"rate": 0.12, "upto": 65000}, {"rate": 0.22, "upto": 103500}, {"rate": 0.24, "upto": 197500}, {"rate": 0.32, "upto": 250000}, {"rate": 0.35, "upto": 625000}, {"rate": 0.37, "upto": Infinity}], "deduction": 22500}}, "fica": {"social_security_rate": 0.062, "social_security_limit": 175000, "medicare_rate": 0.0145}, "states": taxTablesData["2024"].states 
+            "federal": {
+                "single": {"brackets": [{"rate": 0.10, "upto": 12000}, {"rate": 0.12, "upto": 48500}, {"rate": 0.22, "upto": 103500}, {"rate": 0.24, "upto": 197500}, {"rate": 0.32, "upto": 250000}, {"rate": 0.35, "upto": 625000}, {"rate": 0.37, "upto": Infinity}], "deduction": 15000},
+                "married": {"brackets": [{"rate": 0.10, "upto": 24000}, {"rate": 0.12, "upto": 97000}, {"rate": 0.22, "upto": 207000}, {"rate": 0.24, "upto": 395000}, {"rate": 0.32, "upto": 500000}, {"rate": 0.35, "upto": 750000}, {"rate": 0.37, "upto": Infinity}], "deduction": 30000},
+                "hoh": {"brackets": [{"rate": 0.10, "upto": 17000}, {"rate": 0.12, "upto": 65000}, {"rate": 0.22, "upto": 103500}, {"rate": 0.24, "upto": 197500}, {"rate": 0.32, "upto": 250000}, {"rate": 0.35, "upto": 625000}, {"rate": 0.37, "upto": Infinity}], "deduction": 22500}
+            },
+            "fica": {
+                "social_security_rate": 0.062,
+                "social_security_limit": 176100, // 2025 wage base limit as per prompt
+                "medicare_rate": 0.0145,
+                "additional_medicare_thresholds": { // 2025 thresholds for Additional Medicare Tax
+                    "single": 200000,
+                    "hoh": 200000,
+                    "married": 250000,
+                    "mfs": 125000 // Assuming MFS threshold for completeness
+                }
+            },
+            "states": {
+                ...taxTablesData["2024"].states, // Copy all 2024 states first
+                "NJ": { // Override NJ with 2025 specific data and new details
+                    "name": "New Jersey",
+                    // Illustrative brackets based on 1.4% to 10.75% range for 2025
+                    // Using the same bracket structure for all NJ filing statuses for simplicity
+                    "single": {"brackets": [{"rate": 0.014, "upto": 20000}, {"rate": 0.0175, "upto": 35000}, {"rate": 0.035, "upto": 40000}, {"rate": 0.05525, "upto": 75000}, {"rate": 0.0637, "upto": 500000}, {"rate": 0.0897, "upto": 1000000}, {"rate": 0.1075, "upto": Infinity}]},
+                    "married": {"brackets": [{"rate": 0.014, "upto": 20000}, {"rate": 0.0175, "upto": 35000}, {"rate": 0.035, "upto": 40000}, {"rate": 0.05525, "upto": 75000}, {"rate": 0.0637, "upto": 500000}, {"rate": 0.0897, "upto": 1000000}, {"rate": 0.1075, "upto": Infinity}]},
+                    "mfs": {"brackets": [{"rate": 0.014, "upto": 10000}, {"rate": 0.0175, "upto": 17500}, {"rate": 0.035, "upto": 20000}, {"rate": 0.05525, "upto": 37500}, {"rate": 0.0637, "upto": 250000}, {"rate": 0.0897, "upto": 500000}, {"rate": 0.1075, "upto": Infinity}]}, // Simplified MFS brackets for illustration
+                    "hoh": {"brackets": [{"rate": 0.014, "upto": 20000}, {"rate": 0.0175, "upto": 35000}, {"rate": 0.035, "upto": 40000}, {"rate": 0.05525, "upto": 75000}, {"rate": 0.0637, "upto": 500000}, {"rate": 0.0897, "upto": 1000000}, {"rate": 0.1075, "upto": Infinity}]},
+                    "qw": {"brackets": [{"rate": 0.014, "upto": 20000}, {"rate": 0.0175, "upto": 35000}, {"rate": 0.035, "upto": 40000}, {"rate": 0.05525, "upto": 75000}, {"rate": 0.0637, "upto": 500000}, {"rate": 0.0897, "upto": 1000000}, {"rate": 0.1075, "upto": Infinity}]},
+                    "sui_rate": 0.0004, // Placeholder for 2025 SUI employee rate (0.04%)
+                    "fli_rate": 0.0033, // 0.33%
+                    "fli_wage_cap": 165400,
+                    "fli_max_contribution": 545.82
+                }
+            }
         };
 
         // --- UTILS ---
@@ -688,7 +656,6 @@
         const formatDate = (dateString) => {
             if (!dateString) return '';
             const date = new Date(dateString + 'T00:00:00'); // Treat as local time
-            // Ensure month and day are two digits
             const month = (date.getMonth() + 1).toString().padStart(2, '0');
             const day = date.getDate().toString().padStart(2, '0');
             const year = date.getFullYear();
@@ -701,7 +668,7 @@
         class DataService {
             getTaxTables(year) { return Promise.resolve(taxTablesData[year] || null); }
             getAllStateNames() {
-                const yearData = taxTablesData['2024']; // Using 2024 for state names as they rarely change
+                const yearData = taxTablesData['2024']; 
                 if (!yearData || !yearData.states) return {};
                 const states = {};
                 for (const abbr in yearData.states) {
@@ -718,7 +685,6 @@
                 this.dataService = new BuellDocsApp.DataService();
             }
 
-            // CRITICAL FIX: Enhanced YTD accumulation logic for batch generation
             async calculateAll(baseFormData) {
                 const results = [];
                 const taxTables = await this.dataService.getTaxTables(baseFormData.taxYear);
@@ -727,26 +693,29 @@
                     return [];
                 }
                 
-                // Initialize YTD trackers with zeros for all possible items
+                // Initialize YTD trackers with values from the form's initialYtd or zeros
+                let ytdGrossTracker = baseFormData.initialYtd.grossPay; // New YTD Gross Tracker
                 let ytdEarningsTracker = {};
                 let ytdDeductionsTracker = {};
                 let ytdTaxesTracker = {
                     'Federal Income Tax': 0,
                     'Social Security': 0,
                     'Medicare': 0,
-                    'State Income Tax': 0
+                    'Additional Medicare Tax': 0, // Added for new tax
+                    'State Income Tax': 0,
+                    'State Unemployment Insurance': 0, // Added for new tax
+                    'Family Leave Insurance': 0 // Added for new tax
                 };
                 
-                // Pre-populate trackers with initial YTD values provided in form data
+                // Pre-populate trackers for earnings and deductions
                 Object.keys(baseFormData.initialYtd.earnings || {}).forEach(key => {
                     ytdEarningsTracker[key] = baseFormData.initialYtd.earnings[key] || 0;
                 });
-                
                 Object.keys(baseFormData.initialYtd.deductions || {}).forEach(key => {
                     ytdDeductionsTracker[key] = baseFormData.initialYtd.deductions[key] || 0;
                 });
+                // Note: initialYtd.taxes is assumed to be handled by ytdTaxesTracker initialization for now
                 
-                // Process each paystub in the batch
                 for (let i = 0; i < baseFormData.numPaystubs; i++) {
                     const singleStubData = { ...baseFormData, ...baseFormData.stubs[i] };
                     
@@ -754,12 +723,15 @@
                     const result = this.calculateSingle(
                         singleStubData, 
                         taxTables, 
-                        { ...ytdEarningsTracker }, // Pass a copy so `calculateSingle` doesn't modify the accumulator directly
+                        ytdGrossTracker, // Pass YTD Gross Before Current
+                        { ...ytdEarningsTracker },
                         { ...ytdDeductionsTracker },
                         { ...ytdTaxesTracker }
                     );
                     
                     // Update YTD trackers for the next iteration (accumulator for the batch)
+                    ytdGrossTracker = pMath.add(ytdGrossTracker, result.grossPay); // Accumulate gross
+                    
                     result.earnings.forEach(e => {
                         ytdEarningsTracker[e.description] = pMath.add(
                             ytdEarningsTracker[e.description] || 0, 
@@ -781,23 +753,22 @@
                         );
                     });
                     
-                    results.push({ ...result, currentStubIndex: i + 1 });
+                    results.push({ ...result, currentStubIndex: i + 1, ytdGross: ytdGrossTracker }); // Add accumulated YTD gross to result
                 }
                 
                 return results;
             }
 
-            calculateSingle(formData, taxTables, ytdEarnings, ytdDeductions, ytdTaxes) {
+            calculateSingle(formData, taxTables, ytdGrossBeforeCurrent, ytdEarnings, ytdDeductions, ytdTaxes) {
                 const payPeriodsPerYear = { weekly: 52, 'bi-weekly': 26, 'semi-monthly': 24, monthly: 12 };
                 const numPayPeriods = payPeriodsPerYear[formData.payPeriod] || 26;
                 
                 // Calculate current gross pay based on earnings input
-                // Ensure to parse current values as floats as they come from form fields
                 const currentGrossPay = formData.earnings.reduce((total, item) => pMath.add(total, parseFloat(item.current) || 0), 0);
                 const annualGross = pMath.multiply(currentGrossPay, numPayPeriods);
 
-                // Calculate taxes for the current period
-                const calculatedTaxes = this.calculateTaxes(currentGrossPay, annualGross, formData, taxTables, numPayPeriods, ytdEarnings);
+                // Calculate taxes for the current period, passing ytdGrossBeforeCurrent
+                const calculatedTaxes = this.calculateTaxes(currentGrossPay, annualGross, formData, taxTables, numPayPeriods, ytdGrossBeforeCurrent, ytdTaxes);
 
                 // Calculate current total deductions and taxes
                 const currentTotalDeductions = formData.deductions.reduce((total, item) => pMath.add(total, parseFloat(item.current) || 0), 0);
@@ -813,70 +784,82 @@
                     totalDeductions: pMath.round(currentTotalDeductions),
                     totalTaxes: pMath.round(currentTotalTaxes),
                     // Map earnings, deductions, and taxes to include updated YTD values
-                    // Ensure current values are also rounded for display consistency
                     earnings: formData.earnings.map(e => ({
                         ...e, 
-                        current: pMath.round(parseFloat(e.current) || 0), // Ensure current is also rounded
+                        current: pMath.round(parseFloat(e.current) || 0),
                         ytd: pMath.round(pMath.add(ytdEarnings[e.description] || 0, parseFloat(e.current) || 0))
                     })),
                     deductions: formData.deductions.map(d => ({
                         ...d, 
-                        current: pMath.round(parseFloat(d.current) || 0), // Ensure current is also rounded
+                        current: pMath.round(parseFloat(d.current) || 0),
                         ytd: pMath.round(pMath.add(ytdDeductions[d.description] || 0, parseFloat(d.current) || 0))
                     })),
                     taxes: [
                         { name: 'Federal Income Tax', current: pMath.round(calculatedTaxes.federal), ytd: pMath.round(pMath.add(ytdTaxes['Federal Income Tax'] || 0, calculatedTaxes.federal)) },
                         { name: 'Social Security', current: pMath.round(calculatedTaxes.socialSecurity), ytd: pMath.round(pMath.add(ytdTaxes['Social Security'] || 0, calculatedTaxes.socialSecurity)) },
                         { name: 'Medicare', current: pMath.round(calculatedTaxes.medicare), ytd: pMath.round(pMath.add(ytdTaxes['Medicare'] || 0, calculatedTaxes.medicare)) },
+                        { name: 'Additional Medicare Tax', current: pMath.round(calculatedTaxes.additionalMedicare), ytd: pMath.round(pMath.add(ytdTaxes['Additional Medicare Tax'] || 0, calculatedTaxes.additionalMedicare)) },
                         { name: 'State Income Tax', current: pMath.round(calculatedTaxes.state), ytd: pMath.round(pMath.add(ytdTaxes['State Income Tax'] || 0, calculatedTaxes.state)) },
+                        { name: 'State Unemployment Insurance', current: pMath.round(calculatedTaxes.sui), ytd: pMath.round(pMath.add(ytdTaxes['State Unemployment Insurance'] || 0, calculatedTaxes.sui)) },
+                        { name: 'Family Leave Insurance', current: pMath.round(calculatedTaxes.fli), ytd: pMath.round(pMath.add(ytdTaxes['Family Leave Insurance'] || 0, calculatedTaxes.fli)) },
                     ].filter(t => t.current > 0 || t.ytd > 0), // Only show taxes if they have a value
                 };
             }
             
-            calculateTaxes(currentGross, annualGross, formData, taxTables, numPayPeriods, ytdEarnings) {
-                // Sum all YTD earnings to get total YTD gross for FICA limit checking
-                // Note: ytdEarnings here is the ACCUMULATED YTD *before* this current pay period
-                const totalYtdGrossBeforeCurrent = Object.values(ytdEarnings).reduce((sum, val) => sum + val, 0);
-
-                const federal = this.getFederalTax(annualGross, formData.filingStatus, taxTables.federal, numPayPeriods);
-                // Pass current gross and YTD gross *before* this period's addition for Social Security calculation
-                const socialSecurity = this.getSocialSecurityTax(currentGross, totalYtdGrossBeforeCurrent, taxTables.fica);
+            calculateTaxes(currentGross, annualGross, formData, taxTables, numPayPeriods, ytdGrossBeforeCurrent, ytdTaxesAccumulator) {
+                const federal = this.getFederalTax(annualGross, formData.filingStatus, taxTables.federal, numPayPeriods, formData.additionalFederalWithholding);
+                const socialSecurity = this.getSocialSecurityTax(currentGross, ytdGrossBeforeCurrent, taxTables.fica);
                 const medicare = this.getMedicareTax(currentGross, taxTables.fica);
-                // For state tax, often annual income is used, or sometimes period income * annual periods.
-                // Sticking with annualGross for consistency with federal for now.
-                const state = this.getStateTax(annualGross, formData.state, formData.filingStatus, taxTables.states, numPayPeriods);
-                return { federal, socialSecurity, medicare, state };
+                const additionalMedicare = this.getAdditionalMedicareTax(currentGross, ytdGrossBeforeCurrent + currentGross, formData.filingStatus, taxTables.fica, ytdTaxesAccumulator['Additional Medicare Tax']);
+                
+                let stateTax = 0;
+                let suiTax = 0;
+                let fliTax = 0;
+
+                // Only calculate state-specific taxes if the state is New Jersey
+                if (formData.state === 'NJ' && taxTables.states['NJ']) {
+                    const njTaxInfo = taxTables.states['NJ'];
+                    stateTax = this.getStateTax(annualGross, 'NJ', formData.njFilingStatus, taxTables.states, numPayPeriods);
+                    suiTax = this.getNJUnemploymentInsurance(currentGross, njTaxInfo);
+                    fliTax = this.getNJFamilyLeaveInsurance(currentGross, ytdGrossBeforeCurrent, njTaxInfo, ytdTaxesAccumulator['Family Leave Insurance']);
+                } else {
+                    // For other states, revert to generic state tax if present or 0
+                    stateTax = this.getStateTax(annualGross, formData.state, formData.filingStatus, taxTables.states, numPayPeriods);
+                }
+
+                return {
+                    federal,
+                    socialSecurity,
+                    medicare,
+                    additionalMedicare,
+                    state: stateTax,
+                    sui: suiTax,
+                    fli: fliTax
+                };
             }
 
-            // CRITICAL FIX: Improved bracket tax calculation with edge case handling
             calculateBracketTax(annualIncome, taxInfo) {
                 let tax = 0;
                 let prevBracketUpto = 0;
                 
-                // Handle zero or negative income
                 const taxableIncome = Math.max(0, annualIncome);
                 
-                // If there are no brackets defined, return 0
                 if (!taxInfo.brackets || taxInfo.brackets.length === 0) {
                     return 0;
                 }
                 
                 for (const bracket of taxInfo.brackets) {
-                    // Skip if bracket rate is invalid
                     if (typeof bracket.rate !== 'number' || isNaN(bracket.rate)) continue;
                     
-                    // Only tax the portion of income that falls within the current bracket
                     if (taxableIncome > prevBracketUpto) {
                         const bracketLimit = bracket.upto || Infinity;
                         const taxableInCurrentBracket = Math.min(taxableIncome, bracketLimit) - prevBracketUpto;
                         
-                        // Only calculate tax if there's taxable income in this bracket
                         if (taxableInCurrentBracket > 0) {
                             tax += pMath.multiply(taxableInCurrentBracket, bracket.rate);
                         }
                     }
                     
-                    // If we've processed all taxable income, break early
                     if (taxableIncome <= (bracket.upto || Infinity)) {
                         break;
                     }
@@ -887,45 +870,39 @@
                 return tax;
             }
 
-            // Calculates Federal Income Tax
-            getFederalTax(annualGross, filingStatus, federalTables, numPayPeriods) {
+            getFederalTax(annualGross, filingStatus, federalTables, numPayPeriods, additionalWithholding) {
                 const table = federalTables[filingStatus];
                 if (!table) return 0;
-                // Taxable income is (Annual Gross - Standard Deduction), ensuring it's not negative
                 const taxableIncome = Math.max(0, pMath.subtract(annualGross, table.deduction)); 
                 const annualTax = this.calculateBracketTax(taxableIncome, table);
-                return pMath.round(pMath.divide(annualTax, numPayPeriods));
+                // Apply additional withholding per period
+                return pMath.round(pMath.divide(annualTax, numPayPeriods) + (parseFloat(additionalWithholding) || 0));
             }
 
-            // Calculates State Income Tax (simplified to bracket-based)
             getStateTax(annualGross, stateAbbr, filingStatus, stateTables, numPayPeriods) {
                 const stateInfo = stateTables[stateAbbr];
                 if (!stateInfo) return 0;
 
-                // Try to find filing status specific table, fallback to single if not found or empty
-                // Some states have different brackets for different filing statuses.
-                // If not defined, fallback to 'single' as a common default.
-                const table = stateInfo[filingStatus] || stateInfo.single;
+                // For NJ, use njFilingStatus, otherwise fallback to federal filingStatus for other states
+                let actualFilingStatus = filingStatus;
+                if (stateAbbr === 'NJ' && stateInfo[formData.njFilingStatus]) { // Check if NJ specific filing status exists
+                    actualFilingStatus = formData.njFilingStatus;
+                }
+
+                const table = stateInfo[actualFilingStatus] || stateInfo.single; // Fallback to single if specific status not found
                 
                 if (!table || !table.brackets || table.brackets.length === 0) return 0; 
                 
-                // Assuming state tax also uses annual gross for bracket calculation
                 const annualTax = this.calculateBracketTax(annualGross, table);
                 return pMath.round(pMath.divide(annualTax, numPayPeriods));
             }
 
-            // CRITICAL FIX: Correct Social Security tax calculation with wage base limit
             getSocialSecurityTax(currentGross, ytdGrossBeforeCurrent, ficaTable) {
                 const limit = ficaTable.social_security_limit;
                 const socialSecurityRate = ficaTable.social_security_rate;
                 
-                // Calculate the YTD gross that has already been taxed for SS
                 const ytdTaxableSS = Math.min(ytdGrossBeforeCurrent, limit);
-                
-                // Determine how much of the limit is remaining
                 const remainingLimit = Math.max(0, limit - ytdTaxableSS);
-                
-                // The amount of current gross subject to SS tax
                 const taxableThisPeriod = Math.min(currentGross, remainingLimit);
                 
                 if (taxableThisPeriod <= 0) return 0;
@@ -933,10 +910,59 @@
                 return pMath.round(pMath.multiply(taxableThisPeriod, socialSecurityRate));
             }
 
-            // Calculates Medicare Tax (no income limit)
             getMedicareTax(currentGross, ficaTable) {
-                // Medicare has no wage base limit, so apply rate to current gross
                 return pMath.round(pMath.multiply(currentGross, ficaTable.medicare_rate));
+            }
+
+            // New: Calculates Additional Medicare Tax
+            getAdditionalMedicareTax(currentGross, ytdGrossCurrentPeriodEnd, filingStatus, ficaTable, ytdAdditionalMedicareBeforeCurrent) {
+                const threshold = ficaTable.additional_medicare_thresholds[filingStatus];
+                if (!threshold) return 0; // No threshold defined for this filing status
+
+                let tax = 0;
+                // Calculate portion of current gross that pushes YTD over the threshold
+                const amountOverThresholdThisPeriod = Math.max(0, ytdGrossCurrentPeriodEnd - Math.max(threshold, ytdGrossBeforeCurrent));
+                
+                if (amountOverThresholdThisPeriod > 0) {
+                    tax = pMath.multiply(amountOverThresholdThisPeriod, 0.009);
+                }
+                return pMath.round(tax);
+            }
+
+            // New: Calculates New Jersey State Unemployment Insurance (SUI)
+            getNJUnemploymentInsurance(currentGross, njTaxInfo) {
+                const suiRate = njTaxInfo.sui_rate || 0;
+                // Assuming no wage limit for SUI employee contribution based on prompt, or apply to all gross
+                return pMath.round(pMath.multiply(currentGross, suiRate));
+            }
+
+            // New: Calculates New Jersey Family Leave Insurance (FLI)
+            getNJFamilyLeaveInsurance(currentGross, ytdGrossBeforeCurrent, njTaxInfo, ytdFliTaxBeforeCurrent) {
+                const fliRate = njTaxInfo.fli_rate || 0;
+                const fliWageCap = njTaxInfo.fli_wage_cap || Infinity;
+                const fliMaxContribution = njTaxInfo.fli_max_contribution || Infinity;
+
+                // Amount of YTD gross that has already been taxed for FLI
+                const ytdTaxableFliWage = Math.min(ytdGrossBeforeCurrent, fliWageCap);
+                
+                // Remaining wage limit for FLI
+                const remainingWageLimit = Math.max(0, fliWageCap - ytdTaxableFliWage);
+                
+                // Current gross taxable for FLI based on wage cap
+                const taxableThisPeriodWageCap = Math.min(currentGross, remainingWageLimit);
+                
+                // Calculate tax based on rate and taxable gross
+                let calculatedTax = pMath.multiply(taxableThisPeriodWageCap, fliRate);
+                
+                // Calculate how much of the max contribution is remaining
+                const remainingContributionLimit = Math.max(0, fliMaxContribution - ytdFliTaxBeforeCurrent);
+
+                // Ensure the calculated tax doesn't exceed the remaining contribution limit
+                const finalTax = Math.min(calculatedTax, remainingContributionLimit);
+
+                if (finalTax <= 0) return 0;
+                
+                return pMath.round(finalTax);
             }
         }
         BuellDocsApp.PaystubCalculator = PaystubCalculator;
@@ -948,37 +974,33 @@
                 this.template = document.getElementById('paystub-template');
                 this.currentIndex = 0;
                 this.totalStubs = 0;
-                this.allPaystubData = []; // Store all calculated paystub data
+                this.allPaystubData = [];
             }
 
-            // Updates all paystub previews based on calculation results
             updateAll(results) {
-                this.container.innerHTML = ''; // Clear previous previews
+                this.container.innerHTML = ''; 
                 this.totalStubs = results.length;
-                this.allPaystubData = results; // Store the results for navigation and PDF
-                this.currentIndex = 0; // Always reset to the first stub after a full update
+                this.allPaystubData = results; 
+                this.currentIndex = 0; 
 
                 results.forEach((data, index) => {
-                    // Clone the template for each paystub
                     const newStub = this.template.cloneNode(true);
                     newStub.id = `paystub-preview-${index}`;
                     newStub.classList.add('paystub-wrapper');
                     if (index === 0) {
-                        newStub.classList.add('active'); // Activate the first stub by default
+                        newStub.classList.add('active');
                     } else {
-                        newStub.style.display = 'none'; // Hide non-active stubs
+                        newStub.style.display = 'none';
                     }
                     this.container.appendChild(newStub);
                     this.populateStub(newStub, data);
                 });
-                this.updateNav(); // Update navigation buttons and status
+                this.updateNav();
             }
 
-            // Populates a single paystub preview with data
             populateStub(stubElement, data) {
                 const find = (selector) => stubElement.querySelector(`[data-id="${selector}"]`);
                 
-                // Populate static information
                 find('businessName').textContent = data.businessName;
                 find('businessAddress').textContent = data.businessAddress;
                 find('businessEin').textContent = `EIN: ${data.businessEin}`;
@@ -989,13 +1011,10 @@
                 find('payDate').textContent = formatDate(data.payDate);
                 find('payPeriodRange').textContent = `${formatDate(data.payPeriodStart)} - ${formatDate(data.payPeriodEnd)}`;
                 
-                // Populate tables
                 this.updateEarningsTable(find('earnings-table'), data.earnings);
                 this.updateGenericTable(find('deductions-table'), data.deductions);
                 this.updateGenericTable(find('taxes-table'), data.taxes);
                 
-                // Populate summary section
-                // These are now populated directly from `data` which has rounded values
                 find('grossPay').textContent = formatCurrency(data.grossPay);
                 find('totalDeductions').textContent = formatCurrency(data.totalDeductions);
                 find('totalTaxes').textContent = formatCurrency(data.totalTaxes);
@@ -1004,12 +1023,29 @@
                 find('summary-totalDeductions').textContent = formatCurrency(data.totalDeductions);
                 find('summary-totalTaxes').textContent = formatCurrency(data.totalTaxes);
                 find('summary-netPay').textContent = formatCurrency(data.netPay);
+
+                // Update YTD Gross display in summary
+                const ytdGrossSummary = stubElement.querySelector('[data-id="summary-ytdGross"]');
+                if (ytdGrossSummary) {
+                    ytdGrossSummary.textContent = formatCurrency(data.ytdGross);
+                } else {
+                    // If not found, add it to the summary grid
+                    const summaryGrid = stubElement.querySelector('.summary-grid');
+                    if (summaryGrid) {
+                        const newSummaryItem = document.createElement('div');
+                        newSummaryItem.className = 'summary-item';
+                        newSummaryItem.innerHTML = '<strong>YTD Gross</strong><span data-id="summary-ytdGross"></span>';
+                        // Insert before Net Pay for better flow
+                        const netPayItem = summaryGrid.querySelector('#net-pay-display').parentElement;
+                        summaryGrid.insertBefore(newSummaryItem, netPayItem);
+                        newSummaryItem.querySelector('span').textContent = formatCurrency(data.ytdGross);
+                    }
+                }
             }
 
-            // Updates the earnings table with calculated values
             updateEarningsTable(table, items) {
                 const tbody = table.querySelector('tbody');
-                tbody.innerHTML = ''; // Clear existing rows
+                tbody.innerHTML = ''; 
                  if (!items || items.length === 0) {
                     tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #888;">No earnings entered.</td></tr>`;
                     return;
@@ -1026,10 +1062,9 @@
                 });
             }
             
-            // Updates generic tables (deductions, taxes)
             updateGenericTable(table, items) {
                  const tbody = table.querySelector('tbody');
-                tbody.innerHTML = ''; // Clear existing rows
+                tbody.innerHTML = ''; 
                 if (!items || items.length === 0) {
                     tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #888;">None</td></tr>`;
                     return;
@@ -1044,7 +1079,6 @@
                 });
             }
 
-            // CRITICAL FIX: Improved navigation methods with proper boundary checks and display handling
             next() { 
                 if (this.currentIndex < this.totalStubs - 1) {
                     this.showStub(this.currentIndex + 1);
@@ -1062,43 +1096,36 @@
                 
                 this.currentIndex = index;
                 
-                // Hide all stubs first
                 this.container.querySelectorAll('.paystub-wrapper').forEach(stub => {
                     stub.classList.remove('active');
                     stub.style.display = 'none';
                 });
                 
-                // Show the requested stub
                 const stubToShow = this.container.querySelector(`#paystub-preview-${index}`);
                 if (stubToShow) {
                     stubToShow.classList.add('active');
                     stubToShow.style.display = 'block';
                     
-                    // Force reflow to ensure proper rendering
                     void stubToShow.offsetWidth;
                 }
                 
                 this.updateNav();
             }
             
-            // Updates the navigation status text and button states
             updateNav() {
                 document.getElementById('stub-nav-status').textContent = `Stub ${this.currentIndex + 1} of ${this.totalStubs}`;
                 document.getElementById('prev-stub').disabled = this.currentIndex === 0;
                 document.getElementById('next-stub').disabled = this.currentIndex >= this.totalStubs - 1;
             }
 
-            // CRITICAL FIX: Updated method to ensure proper styling for PDF generation
             getCurrentStubElementForPDF() {
                 const activeStub = this.container.querySelector('.paystub-wrapper.active');
                 if (!activeStub) return null;
                 
-                // Create a deep clone to manipulate without affecting the live preview DOM
                 const pdfElement = activeStub.cloneNode(true);
                 pdfElement.style.display = 'block';
                 pdfElement.style.width = '100%';
                 
-                // Add critical print-specific styles directly to the cloned element
                 const style = document.createElement('style');
                 style.textContent = `
                     * { font-family: 'Inter', sans-serif !important; }
@@ -1150,51 +1177,49 @@
                 this.updateCallback = updateCallback;
                 this.dataService = new BuellDocsApp.DataService();
                 this.taxYearDisclaimer = document.getElementById('tax-year-disclaimer');
+                this.njFilingStatusGroup = document.getElementById('nj-filing-status-group');
 
-                // Listen for input changes to trigger paystub recalculation
-                // Using 'change' for selects and 'input' for text/number fields
                 this.form.addEventListener('input', (e) => {
-                    // Handle specific fields that impact others immediately
                     if (e.target.id === 'incomeType' || e.target.id === 'incomeAmount' || e.target.id === 'payPeriod') {
-                        this.handleIncomeCalculation(); // Recalculate income when relevant fields change
+                        this.handleIncomeCalculation();
                     }
                     if (e.target.id === 'payPeriod' || e.target.id === 'numPaystubs') {
-                        this.generateDateInputs(); // Regenerate dates if pay period or number of stubs changes
+                        this.generateDateInputs();
                     }
                     if (e.target.id === 'taxYear') {
                         this.toggleTaxYearDisclaimer();
                     }
-                    this.updateCallback(); // Trigger overall update for any form change
+                    if (e.target.id === 'state') {
+                        this.toggleNjFilingStatus();
+                    }
+                    this.updateCallback();
                 });
 
-                this.setupDynamicFields(); // Setup add/remove for earnings/deductions
-                this.populateStateOptions(); // Populate state dropdown
-                this.setupBatchGeneration(); // Setup dynamic date inputs for multiple stubs
-                this.addDefaultEarningDeduction(); // Add initial earning/deduction rows
-                this.handleIncomeCalculation(); // Initial income calculation based on defaults
-                this.toggleTaxYearDisclaimer(); // Initial disclaimer visibility check
+                this.setupDynamicFields();
+                this.populateStateOptions();
+                this.setupBatchGeneration();
+                this.addDefaultEarningDeduction();
+                this.handleIncomeCalculation();
+                this.toggleTaxYearDisclaimer();
+                this.toggleNjFilingStatus(); // Initial check for NJ filing status visibility
             }
             
-            // Gathers all form data into a structured object
             getFormData() {
-                // Helper to get values from dynamic fields (earnings or deductions)
                 const getDynamicData = (containerId, hasRateAndHours) => {
                     const items = [];
-                    const ytdMap = {}; // Use a map to store YTD for each description
+                    const ytdMap = {}; 
 
-                    // Select all dynamic field rows, excluding the header (first .dynamic-field-grid)
                     document.querySelectorAll(`#${containerId} .dynamic-field-grid`).forEach((field, index) => {
-                        if (index === 0) return; // Skip the header row (labels)
+                        if (index === 0) return; 
                         
                         const descInput = field.querySelector('[name*="Description"]');
-                        if (!descInput || !descInput.value.trim()) return; // Skip if description is empty or missing
+                        if (!descInput || !descInput.value.trim()) return; 
 
                         const description = descInput.value.trim();
                         let currentAmount = 0;
                         let ytdAmount = 0;
 
                         if (hasRateAndHours) {
-                            // For earnings, current is derived from rate and hours, or directly from hidden input
                             currentAmount = parseFloat(field.querySelector('[name*="AmountCurrent"]').value) || 0;
                             ytdAmount = parseFloat(field.querySelector('[name*="AmountYTD"]').value) || 0;
 
@@ -1204,12 +1229,11 @@
                             items.push(item);
 
                         } else {
-                            // For deductions, current and YTD are direct inputs
                             currentAmount = parseFloat(field.querySelector('[name*="AmountCurrent"]').value) || 0;
                             ytdAmount = parseFloat(field.querySelector('[name*="AmountYTD"]').value) || 0;
                             items.push({ description, current: currentAmount });
                         }
-                        ytdMap[description] = ytdAmount; // Store YTD for this specific item description
+                        ytdMap[description] = ytdAmount; 
                     });
                     return { items, ytd: ytdMap };
                 };
@@ -1217,7 +1241,6 @@
                 const earningsData = getDynamicData('earnings-container', true);
                 const deductionsData = getDynamicData('deductions-container', false);
 
-                // Collect paystub specific dates for batch generation
                 const stubs = [];
                 const numPaystubs = parseInt(document.getElementById('numPaystubs').value, 10) || 1;
                 const payPeriod = document.getElementById('payPeriod').value;
@@ -1245,36 +1268,37 @@
                     employeeAddress: document.getElementById('employeeAddress').value,
                     employeeId: document.getElementById('employeeId').value,
                     employeeSsn: document.getElementById('employeeSsn').value,
+                    initialYtd: {
+                        grossPay: parseFloat(document.getElementById('initialYtdGross').value) || 0, // New YTD gross input
+                        earnings: earningsData.ytd,
+                        deductions: deductionsData.ytd,
+                        taxes: {} // Taxes YTD are purely calculated, not manually input here
+                    },
                     payPeriod: document.getElementById('payPeriod').value,
                     payRate: parseFloat(document.getElementById('payRate').value) || 0,
                     taxYear: document.getElementById('taxYear').value,
                     filingStatus: document.getElementById('filingStatus').value,
+                    additionalFederalWithholding: parseFloat(document.getElementById('additionalFederalWithholding').value) || 0, // New input
                     state: document.getElementById('state').value,
+                    njFilingStatus: document.getElementById('njFilingStatus') ? document.getElementById('njFilingStatus').value : 'single', // New input, default if not NJ
                     numPaystubs: numPaystubs,
-                    stubs: stubs, // Contains start, end, and pay dates for each stub
+                    stubs: stubs,
                     earnings: earningsData.items,
                     deductions: deductionsData.items,
-                    initialYtd: { // Initial YTD values from form input. These are the *starting* YTDs for the *first* stub.
-                        earnings: earningsData.ytd,
-                        deductions: deductionsData.ytd,
-                        taxes: {} // Taxes YTD are purely calculated, not manually input here
-                    }
                 };
             }
 
-            // Sets up listener for number of paystubs and generates date inputs
             setupBatchGeneration() {
                 const numInput = document.getElementById('numPaystubs');
                 numInput.addEventListener('input', () => this.generateDateInputs());
-                this.generateDateInputs(); // Initial generation on load
+                this.generateDateInputs();
             }
 
-            // Dynamically generates date input fields based on number of paystubs selected
             generateDateInputs() {
                 const container = document.getElementById('paystub-dates-container');
                 const num = parseInt(document.getElementById('numPaystubs').value, 10) || 1;
                 const payPeriod = document.getElementById('payPeriod').value;
-                let daysOffset = 0; // Number of days to subtract from today for the first stub's start date
+                let daysOffset = 0;
                 const today = new Date();
 
                 switch (payPeriod) {
@@ -1282,14 +1306,11 @@
                     case 'bi-weekly': daysOffset = 14; break;
                     case 'semi-monthly': daysOffset = 15; break; 
                     case 'monthly': daysOffset = 30; break;
-                    default: daysOffset = 14; // Default to bi-weekly
+                    default: daysOffset = 14; 
                 }
 
-                container.innerHTML = ''; // Clear existing date inputs
+                container.innerHTML = ''; 
 
-                // Calculate the start date for the first paystub in the sequence
-                // To ensure subsequent stubs are in the future, if num > 1, the first stub
-                // should start 'daysOffset * (num - 1)' days in the past.
                 let startDateForFirstStub = new Date(today);
                 startDateForFirstStub.setDate(today.getDate() - (daysOffset * (num - 1)));
 
@@ -1300,20 +1321,16 @@
                                      <input type="date" id="payPeriodStart-${i}" name="payPeriodStart-${i}">`;
                     container.appendChild(div);
 
-                    // Calculate the specific start date for the current stub in the loop
                     const currentStubStartDate = new Date(startDateForFirstStub);
                     currentStubStartDate.setDate(startDateForFirstStub.getDate() + (daysOffset * i));
 
-                    // Set default date for the input
                     const dateInput = document.getElementById(`payPeriodStart-${i}`);
                     dateInput.value = currentStubStartDate.toISOString().split('T')[0];
                     
-                    // Add listener to each date input
                     dateInput.addEventListener('input', this.updateCallback);
                 }
             }
 
-            // CRITICAL FIX: Corrected batch generation date calculation logic
             calculateEndAndPayDates(startDateString, payPeriod) {
                 const startDate = new Date(startDateString + 'T00:00:00');
                 const endDate = new Date(startDate);
@@ -1322,30 +1339,24 @@
                 switch(payPeriod) {
                     case 'weekly':
                         endDate.setDate(startDate.getDate() + 6);
-                        payDate.setDate(endDate.getDate() + 2); // More realistic pay date
+                        payDate.setDate(endDate.getDate() + 2);
                         break;
                     case 'bi-weekly':
                         endDate.setDate(startDate.getDate() + 13);
-                        payDate.setDate(endDate.getDate() + 2); // More realistic pay date
+                        payDate.setDate(endDate.getDate() + 2);
                         break;
                     case 'semi-monthly':
-                        // More accurate semi-monthly calculation
                         const day = startDate.getDate();
                         if (day <= 15) {
-                            // Period ends on 15th
-                            endDate.setDate(15); // Set to 15th of current month
-                            payDate = new Date(startDate.getFullYear(), startDate.getMonth(), 17); // Pay date 17th
+                            endDate.setDate(15);
+                            payDate = new Date(startDate.getFullYear(), startDate.getMonth(), 17);
                         } else {
-                            // Period ends on last day of month
-                            endDate.setMonth(startDate.getMonth() + 1, 0); // Last day of current month
-                            // Pay date on the 2nd of next month
+                            endDate.setMonth(startDate.getMonth() + 1, 0); 
                             payDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 2);
                         }
                         break;
                     case 'monthly':
-                        // Period ends on last day of month
-                        endDate.setMonth(startDate.getMonth() + 1, 0); // Last day of current month
-                        // Pay date on the 5th of next month
+                        endDate.setMonth(startDate.getMonth() + 1, 0); 
                         payDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 5);
                         break;
                     default:
@@ -1354,7 +1365,6 @@
                         break;
                 }
                 
-                // Format dates as YYYY-MM-DD
                 const formatDate = (date) => {
                     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
                 };
@@ -1365,7 +1375,6 @@
                 };
             }
 
-            // Handles calculation of pay rate/amount based on selected income type
             handleIncomeCalculation() {
                 const incomeType = document.getElementById('incomeType').value;
                 const incomeAmount = parseFloat(document.getElementById('incomeAmount').value) || 0;
@@ -1375,12 +1384,11 @@
                 
                 if (incomeType === 'manual' || incomeAmount <= 0) {
                     incomeGroup.style.display = 'none';
-                    // If switching to manual, ensure 'Regular Pay' amounts are reset or handled manually by user
                     const firstEarningRow = document.querySelector('#earnings-container .dynamic-field-grid:not(:first-child)');
                     if (firstEarningRow) {
                         firstEarningRow.querySelector('[name*="Rate"]').value = '';
                         firstEarningRow.querySelector('[name*="Hours"]').value = '';
-                        firstEarningRow.querySelector('[name*="AmountCurrent"]').value = ''; // Clear hidden value
+                        firstEarningRow.querySelector('[name*="AmountCurrent"]').value = ''; 
                     }
                     return;
                 }
@@ -1395,138 +1403,129 @@
                     default: annualSalary = 0; break;
                 }
                 
-                const grossPerPeriod = pMath.divide(annualSalary, payPeriodsPerYear[payPeriod] || 1); // Avoid division by zero
-                // Typical working hours per period for a full-time employee (approximate for semi-monthly/monthly)
+                const grossPerPeriod = pMath.divide(annualSalary, payPeriodsPerYear[payPeriod] || 1); 
                 const hoursPerPeriod = { weekly: 40, 'bi-weekly': 80, 'semi-monthly': 86.67, monthly: 173.33 }; 
-                const hourlyRate = pMath.divide(grossPerPeriod, hoursPerPeriod[payPeriod] || 1); // Avoid division by zero
+                const hourlyRate = pMath.divide(grossPerPeriod, hoursPerPeriod[payPeriod] || 1); 
                 
-                // Update the first earning entry, assuming it's 'Regular Pay'
-                // We target the second .dynamic-field-grid because the first is the header row
                 const firstEarningRow = document.querySelector('#earnings-container .dynamic-field-grid:not(:first-child)'); 
                 if (firstEarningRow) {
                     const descInput = firstEarningRow.querySelector('[name*="Description"]');
                     const rateInput = firstEarningRow.querySelector('[name*="Rate"]');
                     const hoursInput = firstEarningRow.querySelector('[name*="Hours"]');
-                    const currentAmountInput = firstEarningRow.querySelector('[name*="AmountCurrent"]'); // Hidden input
+                    const currentAmountInput = firstEarningRow.querySelector('[name*="AmountCurrent"]'); 
 
                     if (descInput && rateInput && hoursInput && currentAmountInput) {
-                        descInput.value = 'Regular Pay'; // Ensure consistent label
+                        descInput.value = 'Regular Pay'; 
                         rateInput.value = pMath.round(hourlyRate);
                         hoursInput.value = hoursPerPeriod[payPeriod].toFixed(2);
-                        // Calculate and set the hidden 'AmountCurrent' directly
                         const calculatedCurrent = pMath.multiply(parseFloat(rateInput.value) || 0, parseFloat(hoursInput.value) || 0);
                         currentAmountInput.value = pMath.round(calculatedCurrent);
                     }
                 }
 
-                // Update the 'Pay Rate' field in the Pay Details section
                 document.getElementById('payRate').value = pMath.round(hourlyRate);
-                this.updateCallback(); // Trigger a full app update after income calculation
+                this.updateCallback();
             }
 
-            // Populates the state dropdown with names from tax data
             async populateStateOptions() {
                 const stateSelect = document.getElementById('state');
                 const states = this.dataService.getAllStateNames();
-                // Clear existing options first (except a potential "Select State" default)
                 stateSelect.innerHTML = '<option value="">Select State</option>'; 
                 for (const abbr in states) {
                     stateSelect.add(new Option(states[abbr], abbr));
                 }
-                stateSelect.value = 'NJ'; // Set default to New Jersey as requested
+                stateSelect.value = 'NJ';
             }
             
-            // Sets up event listeners for 'Add Earning' and 'Add Deduction' buttons
             setupDynamicFields() {
                 document.getElementById('add-earning').addEventListener('click', () => {
                     this.addDynamicField('earnings-container', true);
-                    this.updateCallback(); // Trigger update after adding new field
+                    this.updateCallback(); 
                 });
                 document.getElementById('add-deduction').addEventListener('click', () => {
                     this.addDynamicField('deductions-container', false);
-                    this.updateCallback(); // Trigger update after adding new field
+                    this.updateCallback(); 
                 });
             }
 
-            // Adds default 'Regular Pay' earning and 'Health Insurance' deduction on load
             addDefaultEarningDeduction() {
-                // Ensure default earnings are added after the header row (index 0)
-                this.addDynamicField('earnings-container', true, { desc: 'Regular Pay', rate: 31.25, hours: 80, current: (31.25 * 80), ytd: 0 }); // Current and YTD will be overridden by income calculator
+                this.addDynamicField('earnings-container', true, { desc: 'Regular Pay', rate: 31.25, hours: 80, current: (31.25 * 80), ytd: 0 });
                 this.addDynamicField('deductions-container', false, { desc: 'Health Insurance', current: 150, ytd: 3000 });
             }
 
-            // Adds a new dynamic input field (for earnings or deductions)
             addDynamicField(containerId, hasRateAndHours, defaults = {}) {
                 const container = document.getElementById(containerId);
                 const newField = document.createElement('div');
                 newField.className = 'form-group dynamic-field-grid';
 
                 const desc = defaults.desc || '';
-                const current = defaults.current || ''; // Use 'current' for consistency, even if hidden
+                const current = defaults.current || ''; 
                 const ytd = defaults.ytd || '';
                 const rate = defaults.rate || '';
                 const hours = defaults.hours || '';
                 
                 const baseName = containerId.includes('earn') ? 'earning' : 'deduction';
                 
-                // HTML for input fields based on whether it's an earning (has rate/hours) or deduction
-                // Hidden input for current amount in earnings to store calculated value
                 newField.innerHTML = `
                     <input type="text" name="${baseName}Description" placeholder="Description" value="${desc}">
                     ${hasRateAndHours ? `
                         <input type="number" name="${baseName}Rate" placeholder="Rate" step="0.01" value="${rate}">
                         <input type="number" name="${baseName}Hours" placeholder="Hours" step="0.01" value="${hours}">
-                        <input type="hidden" name="${baseName}AmountCurrent" value="${current}"> <!-- Hidden, calculated from Rate * Hours -->
+                        <input type="hidden" name="${baseName}AmountCurrent" value="${current}">
                         <input type="number" name="${baseName}AmountYTD" placeholder="YTD" step="0.01" value="${ytd}">
                     ` : `
                         <input type="number" name="${baseName}AmountCurrent" placeholder="Amount" step="0.01" value="${current}">
                         <input type="number" name="${baseName}AmountYTD" placeholder="YTD" step="0.01" value="${ytd}">
-                        <span></span> <!-- Placeholder to align grid, keeps grid consistent -->
+                        <span></span>
                     `}
                     <button type="button" class="btn-remove">&times;</button>
                 `;
                 
-                // If it's an earning field, set up listeners to calculate 'Current' amount
                 if (hasRateAndHours) {
                     const rateInput = newField.querySelector('input[name*="Rate"]');
                     const hoursInput = newField.querySelector('input[name*="Hours"]');
-                    const currentAmountInput = newField.querySelector('input[name*="AmountCurrent"]'); // This is hidden
+                    const currentAmountInput = newField.querySelector('input[name*="AmountCurrent"]');
                     
                     const calculateCurrent = () => {
                          const currentAmount = pMath.multiply(parseFloat(rateInput.value) || 0, parseFloat(hoursInput.value) || 0);
                          currentAmountInput.value = pMath.round(currentAmount);
-                         this.updateCallback(); // Trigger a full app update
+                         this.updateCallback();
                     };
                     rateInput.addEventListener('input', calculateCurrent);
                     hoursInput.addEventListener('input', calculateCurrent);
-                    calculateCurrent(); // Initial calculation for the newly added row
+                    calculateCurrent();
                 }
 
                 container.appendChild(newField);
-                // Add event listener for the remove button
                 newField.querySelector('.btn-remove').addEventListener('click', (e) => {
                     e.target.parentElement.remove();
-                    this.updateCallback(); // Trigger update after removal
+                    this.updateCallback();
                 });
-                // Add input listeners for all inputs in the new row to trigger updates
                 newField.querySelectorAll('input').forEach(input => {
-                    // Only add to non-hidden inputs, as hidden currentAmount is updated by rate/hours listener
                     if (input.type !== 'hidden') {
                         input.addEventListener('input', () => this.updateCallback());
                     }
                 });
             }
 
-            // CRITICAL FIX: Enhanced visibility and styling for the 2025 tax year disclaimer
             toggleTaxYearDisclaimer() {
                 const taxYear = document.getElementById('taxYear').value;
                 if (taxYear === '2025') {
                     this.taxYearDisclaimer.style.display = 'block';
-                    // Also make it more prominent
                     this.taxYearDisclaimer.style.backgroundColor = '#fff8e6';
                     this.taxYearDisclaimer.style.borderLeftColor = '#ffc107';
                 } else {
                     this.taxYearDisclaimer.style.display = 'none';
+                }
+            }
+
+            // New: Toggles visibility of NJ filing status based on selected state
+            toggleNjFilingStatus() {
+                const selectedState = document.getElementById('state').value;
+                if (selectedState === 'NJ') {
+                    this.njFilingStatusGroup.style.display = 'block';
+                } else {
+                    this.njFilingStatusGroup.style.display = 'none';
                 }
             }
         }
@@ -1537,28 +1536,21 @@
             constructor() {
                 this.previewUpdater = new BuellDocsApp.PreviewUpdater();
                 this.calculator = new BuellDocsApp.PaystubCalculator();
-                // Pass the processUpdate method as a callback to FormManager
                 this.formManager = new BuellDocsApp.FormManager(() => this.processUpdate());
                 this.setupEventListeners();
-                this.processUpdate(); // Initial calculation and render on page load
+                this.processUpdate();
             }
 
-            // Main method to fetch data, calculate, and update preview
             async processUpdate() {
                 try {
                     const formData = this.formManager.getFormData();
-                    // Perform calculations for all paystubs in batch
                     const calculationResults = await this.calculator.calculateAll(formData);
-                    // Update the preview with all calculated results
                     this.previewUpdater.updateAll(calculationResults);
                 } catch (error) {
                     console.error("Calculation Error:", error);
-                    // Optionally display a user-friendly error message here
-                    // e.g., by updating a dedicated error message div in the UI
                 }
             }
 
-            // Sets up event listeners for global UI elements (e.g., PDF download, navigation)
             setupEventListeners() {
                 document.getElementById('download-pdf').addEventListener('click', () => {
                     const currentStubElement = this.previewUpdater.getCurrentStubElementForPDF();
@@ -1567,16 +1559,15 @@
                         return;
                     }
 
-                    // Options for html2pdf
                     const opt = {
-                        margin: 0.5, // 0.5 inch margin on all sides
+                        margin: 0.5,
                         filename: 'paystub.pdf',
                         image: { type: 'jpeg', quality: 0.98 },
                         html2canvas: { 
-                            scale: 2, // Higher scale for better quality text and lines
+                            scale: 2, 
                             useCORS: true, 
-                            logging: false, // Suppress html2canvas logs
-                            letterRendering: true // Improve text rendering
+                            logging: false, 
+                            letterRendering: true 
                         }, 
                         jsPDF: { 
                             unit: 'in', 
@@ -1585,7 +1576,6 @@
                         }
                     };
                     
-                    // Generate and save the PDF
                     html2pdf().from(currentStubElement).set(opt).save();
                 });
 
@@ -1596,7 +1586,6 @@
         BuellDocsApp.UIController = UIController;
 
         // --- APP INITIALIZATION ---
-        // Initializes the main UIController once the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', () => {
             new BuellDocsApp.UIController();
         });
