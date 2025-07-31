@@ -1,0 +1,17 @@
+{
+  "name": "buelldocs-paystub-generator",
+  "version": "1.0.0",
+  "description": "A sleek and modern web application for creating professional paystubs",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve .",
+    "build": "echo 'No build step required for static HTML project'"
+  },
+  "keywords": ["paystub", "generator", "buelldocs", "payroll"],
+  "author": "BuellDocs",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
